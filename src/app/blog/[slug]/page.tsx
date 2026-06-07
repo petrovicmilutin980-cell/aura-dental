@@ -225,7 +225,7 @@ export default async function BlogPostPage({
 
       <article className="py-16 md:py-24 bg-alabaster">
         <div className="mx-auto max-w-3xl px-6">
-          <ImagePlaceholder aspect="16/9" label={post.title} className="mb-10 rounded-2xl" src="https://images.unsplash.com/photo-1551609011-6f1e5c6a5f8a?w=800&q=80&fit=crop" />
+          <ImagePlaceholder aspect="16/9" label={post.title} className="mb-10 rounded-2xl" src="https://images.pexels.com/photos/4269936/pexels-photo-4269936.jpeg?w=800&q=80" />
           <div className="prose prose-lg max-w-none">
             {post.content.split("\n").map((line, i) => {
               if (line.startsWith("## ")) {

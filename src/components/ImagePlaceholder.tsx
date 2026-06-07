@@ -23,7 +23,7 @@ export function ImagePlaceholder({
       className={`relative w-full overflow-hidden ${aspectClasses[aspect]} ${className}`}
     >
       <img
-        src={src || `https://images.unsplash.com/photo-1516062423079-7dc13b4f8e54?w=800&q=80&fit=crop`}
+        src={src || `https://images.pexels.com/photos/4269948/pexels-photo-4269948.jpeg?w=800&q=80`}
         alt={label}
         className="h-full w-full object-cover"
         loading="lazy"
