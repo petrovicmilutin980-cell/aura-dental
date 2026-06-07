@@ -80,7 +80,7 @@ export function ServicesGrid() {
           onClick={() => setModalService(null)}
         >
           <div
-            className="relative max-w-2xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl"
+            className="relative max-w-2xl w-full bg-white rounded-3xl max-h-[85vh] overflow-y-auto shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button
