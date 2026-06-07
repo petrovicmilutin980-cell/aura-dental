@@ -1,8 +1,44 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { SERVICES } from "@/lib/constants";
 import { SectionWrapper } from "@/components/SectionWrapper";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+
+const SERVICE_DETAILS: Record<string, { image: string; fullDesc: string; highlights: string[] }> = {
+  implantologija: {
+    image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=80&fit=crop",
+    fullDesc: "Straumann® implantati su zlatni standard u implantologiji. Sa preko 60 godina istraživanja i stopom uspešnosti od preko 98%, pružaju doživotno rešenje za nedostatak zuba. Proces uključuje 3D dijagnostiku, kompjutersko planiranje i bezbolnu ugradnju.",
+    highlights: ["Doživotna garancija", "Bezbolna procedura", "Prirodan izgled", "Brzi oporavak"],
+  },
+  "estetska-stomatologija": {
+    image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=80&fit=crop",
+    fullDesc: "Transformišite svoj osmeh uz naše premium estetske tretmane. Od keramičkih faseta do profesionalnog izbeljivanja Zoom! sistemom, svaki tretman je prilagođen vašim željama i potrebama.",
+    highlights: ["Digitalni dizajn", "Minimalno invazivno", "15-20 godina trajnosti", "Prirodan rezultat"],
+  },
+  ortodoncija: {
+    image: "https://images.unsplash.com/photo-1609859681057-155c6e5e7fb4?w=800&q=80&fit=crop",
+    fullDesc: "Invisalign® je najnapredniji sistem za ispravljanje zuba bez bravica. Prozirne folije su gotovo nevidljive, udobne i skidaju se za jelo i pranje zuba. Rezultate vidite već na prvoj poseti kroz 3D simulaciju.",
+    highlights: ["Nevidljive folije", "Bez metala", "6-18 meseci", "3D simulacija"],
+  },
+};
 
 export function ServicesGrid() {
+  const [modalService, setModalService] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (modalService) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [modalService]);
+
+  const activeDetail = modalService ? SERVICE_DETAILS[modalService] : null;
+  const activeService = modalService ? SERVICES.find((s) => s.id === modalService) : null;
+
   return (
     <SectionWrapper background="grid" id="services">
       <div className="mx-auto max-w-2xl text-center">
@@ -16,11 +52,9 @@ export function ServicesGrid() {
 
       <div className="mt-12 grid gap-6 md:grid-cols-3">
         {SERVICES.map((service) => (
-          <Link
+          <div
             key={service.id}
-            href={`/usluge/${service.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={() => setModalService(service.id)}
             className="group rounded-2xl border border-midnight/5 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gold/5 cursor-pointer"
           >
             <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gold/5 transition-colors duration-300 group-hover:bg-gold/10">
@@ -36,16 +70,77 @@ export function ServicesGrid() {
               <span>Saznajte više</span>
               <ArrowRightIcon />
             </div>
-          </Link>
+          </div>
         ))}
       </div>
+
+      {modalService && activeDetail && activeService && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-midnight/70 backdrop-blur-md p-4"
+          onClick={() => setModalService(null)}
+        >
+          <div
+            className="relative max-w-2xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setModalService(null)}
+              className="absolute top-4 right-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-alabaster/90 text-midnight hover:bg-alabaster transition-all cursor-pointer shadow-lg"
+              aria-label="Close"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="aspect-[16/9] w-full overflow-hidden">
+              <img src={activeDetail.image} alt={activeService.title} className="h-full w-full object-cover" />
+            </div>
+
+            <div className="p-8">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="inline-block h-2 w-2 rounded-full bg-gold" />
+                <span className="text-xs font-semibold uppercase tracking-wider text-gold">Premium usluga</span>
+              </div>
+              <h3 className="font-heading text-2xl font-bold text-midnight">{activeService.title}</h3>
+              <p className="mt-3 text-midnight/60 leading-relaxed">{activeDetail.fullDesc}</p>
+
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                {activeDetail.highlights.map((h) => (
+                  <div key={h} className="flex items-center gap-2 rounded-xl bg-gold/5 px-4 py-3">
+                    <svg className="h-4 w-4 shrink-0 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                    <span className="text-sm font-medium text-midnight">{h}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 flex gap-3">
+                <Link
+                  href={`/usluge/${activeService.id}`}
+                  target="_blank"
+                  className="flex-1 rounded-xl bg-midnight px-6 py-3 text-center text-sm font-semibold text-alabaster transition-all duration-200 hover:bg-midnight/90"
+                >
+                  Detaljno o usluzi
+                </Link>
+                <button
+                  onClick={() => setModalService(null)}
+                  className="rounded-xl border border-midnight/10 px-6 py-3 text-sm font-medium text-midnight/60 transition-all duration-200 hover:border-gold/30 hover:text-gold cursor-pointer"
+                >
+                  Zatvori
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </SectionWrapper>
   );
 }
 
 function ServiceIcon({ name }: { name: string }) {
   const className = "h-7 w-7 text-gold";
-
   switch (name) {
     case "Tooth":
       return (

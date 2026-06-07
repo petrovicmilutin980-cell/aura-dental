@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SectionWrapper } from "@/components/SectionWrapper";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 
@@ -17,10 +17,20 @@ const FILTERS = ["Svi", "Implantologija", "Estetika", "Ortodoncija", "Hirurgija"
 
 export function BeforeAfterGallery() {
   const [activeFilter, setActiveFilter] = useState("Svi");
+  const [lightbox, setLightbox] = useState<typeof CASES[0] | null>(null);
 
   const filtered = CASES.filter(
     (c) => activeFilter === "Svi" || c.category === activeFilter
   );
+
+  useEffect(() => {
+    if (lightbox) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [lightbox]);
 
   return (
     <SectionWrapper background="alabaster" id="beforeAfter">
@@ -51,31 +61,46 @@ export function BeforeAfterGallery() {
         {filtered.map((c) => (
           <div
             key={c.id}
+            onClick={() => setLightbox(c)}
             className="group relative overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer"
           >
-            <ImagePlaceholder
-              aspect="4/3"
-              label={`Before / After - ${c.title}`}
-              src={c.src}
-            />
-
-            <div className="p-5">
-              <span className="text-xs font-semibold uppercase tracking-wider text-gold">
-                {c.category}
-              </span>
-              <h3 className="mt-1 font-heading text-base font-semibold text-midnight group-hover:text-gold transition-colors duration-200">
-                {c.title}
-              </h3>
-              <div className="mt-3 flex items-center gap-1 text-xs font-medium text-midnight/40 group-hover:text-gold/60 transition-colors">
-                <span>Pogledaj slučaj</span>
-                <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </div>
+            <ImagePlaceholder aspect="4/3" label={c.title} src={c.src} />
+            <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+              <span className="text-xs font-semibold uppercase tracking-wider text-gold-light">{c.category}</span>
+              <h3 className="font-heading text-base font-semibold text-alabaster">{c.title}</h3>
             </div>
           </div>
         ))}
       </div>
+
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-midnight/80 backdrop-blur-md p-4"
+          onClick={(e) => { if (e.target === e.currentTarget) setLightbox(null); }}
+        >
+          <button
+            onClick={() => setLightbox(null)}
+            className="absolute top-6 right-6 flex h-10 w-10 items-center justify-center rounded-full bg-alabaster/10 text-alabaster hover:bg-alabaster/20 transition-all cursor-pointer"
+            aria-label="Close"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          <div className="max-w-4xl w-full" onClick={(e) => e.stopPropagation()}>
+            <div className="overflow-hidden rounded-2xl shadow-2xl">
+              <img src={lightbox.src} alt={lightbox.title} className="w-full h-auto" />
+            </div>
+            <div className="mt-4 text-center">
+              <span className="text-sm font-semibold uppercase tracking-wider text-gold-light">{lightbox.category}</span>
+              <h3 className="font-heading text-xl font-semibold text-alabaster mt-1">{lightbox.title}</h3>
+              <p className="text-sm text-alabaster/50 mt-1">Kliknite van slike za zatvaranje</p>
+            </div>
+          </div>
+        </div>
+      )}
     </SectionWrapper>
   );
 }
