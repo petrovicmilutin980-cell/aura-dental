@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
-import { SITE, WORKING_HOURS } from "@/lib/constants";
+import { SITE } from "@/lib/constants";
+import { useI18n } from "@/lib/i18n/context";
 
 export function Footer() {
+  const { t } = useI18n();
   return (
     <footer className="bg-midnight text-alabaster/80">
       <div className="mx-auto max-w-7xl px-6 py-16">
@@ -31,11 +35,11 @@ export function Footer() {
 
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-alabaster">
-              Klinika
+              {t("footer.clinic")}
             </h4>
             <ul className="space-y-2.5">
               {[
-                { label: "O nama", href: "/" },
+                { label: t("footer.about"), href: "/" },
                 { label: "Tim", href: "/tim" },
                 { label: "Karijera", href: "/karijera" },
                 { label: "Kontakt", href: "/kontakt" },
@@ -54,7 +58,7 @@ export function Footer() {
 
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-alabaster">
-              Usluge
+              {t("footer.services")}
             </h4>
             <ul className="space-y-2.5">
               {["Implantologija", "Estetika", "Ortodoncija", "Hirurgija"].map((item) => (
@@ -100,20 +104,32 @@ export function Footer() {
         <div className="mt-12 border-t border-alabaster/10 pt-8">
           <div className="grid gap-4 md:grid-cols-3">
             <div className="space-y-3">
-              <h5 className="text-sm font-semibold text-alabaster/80">Radno Vreme</h5>
-              {WORKING_HOURS.map((wh) => (
-                <div key={wh.days} className="text-xs text-alabaster/50">
-                  <span className="font-medium text-alabaster/70">{wh.days}</span>
-                  <br />
-                  {wh.hours}
-                  <br />
-                  <span className="italic">{wh.note}</span>
-                </div>
-              ))}
+              <h5 className="text-sm font-semibold text-alabaster/80">{t("footer.workingHours")}</h5>
+              <div className="text-xs text-alabaster/50">
+                <span className="font-medium text-alabaster/70">{t("workhours.weekdays")}</span>
+                <br />
+                08:00h – 21:00h
+                <br />
+                <span className="italic">{t("workhours.weekdays.note")}</span>
+              </div>
+              <div className="text-xs text-alabaster/50">
+                <span className="font-medium text-alabaster/70">{t("workhours.saturday")}</span>
+                <br />
+                09:00h – 16:00h
+                <br />
+                <span className="italic">{t("workhours.saturday.note")}</span>
+              </div>
+              <div className="text-xs text-alabaster/50">
+                <span className="font-medium text-alabaster/70">{t("workhours.sunday")}</span>
+                <br />
+                {t("workhours.sunday.hours")}
+                <br />
+                <span className="italic">{t("workhours.sunday.note")}</span>
+              </div>
             </div>
 
             <div className="space-y-3">
-              <h5 className="text-sm font-semibold text-alabaster/80">Parking</h5>
+              <h5 className="text-sm font-semibold text-alabaster/80">{t("footer.parking")}</h5>
               <p className="text-xs text-alabaster/50">
                 {SITE.parking.type} — {SITE.parking.cost}
                 <br />
@@ -122,10 +138,10 @@ export function Footer() {
             </div>
 
             <div className="space-y-3">
-              <h5 className="text-sm font-semibold text-alabaster/80">Pristupačnost</h5>
+              <h5 className="text-sm font-semibold text-alabaster/80">{t("footer.accessibility")}</h5>
               <p className="text-xs text-alabaster/50">
                 {SITE.accessibility.wheelchairAccess
-                  ? "Kompletan prilaz i ordinacije prilagođeni osobama sa invaliditetom"
+                  ? t("footer.accessibleText")
                   : ""}
               </p>
             </div>
@@ -133,13 +149,13 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-alabaster/10 pt-8 text-xs text-alabaster/40 md:flex-row">
-          <p>&copy; {new Date().getFullYear()} {SITE.legalName}. Sva prava zadržana.</p>
+          <p>&copy; {new Date().getFullYear()} {SITE.legalName}. {t("footer.rights")}</p>
           <div className="flex gap-4">
             <Link href="/politika-privatnosti" className="transition-colors hover:text-gold">
-              Politika privatnosti
+              {t("footer.privacy")}
             </Link>
             <Link href="/uslovi-koriscenja" className="transition-colors hover:text-gold">
-              Uslovi korišćenja
+              {t("footer.terms")}
             </Link>
           </div>
         </div>

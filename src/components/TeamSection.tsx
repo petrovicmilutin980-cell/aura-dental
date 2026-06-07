@@ -1,17 +1,21 @@
+"use client";
+
 import Link from "next/link";
 import { DOCTORS, DOCTOR_IMAGES } from "@/lib/constants";
 import { SectionWrapper } from "@/components/SectionWrapper";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { useI18n } from "@/lib/i18n/context";
 
 export function TeamSection() {
+  const { t } = useI18n();
   return (
     <SectionWrapper background="white" id="team">
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="font-heading text-3xl font-bold text-midnight md:text-4xl">
-          Naš Tim Eksperata
+          {t("team.heading")}
         </h2>
         <p className="mt-4 text-midnight/60">
-          Vrhunski stručnjaci sa internacionalnim iskustvom
+          {t("team.subtitle")}
         </p>
       </div>
 
@@ -56,7 +60,7 @@ export function TeamSection() {
           <div className="text-center">
             <span className="text-3xl font-light text-midnight/30">+</span>
             <p className="mt-2 text-sm font-medium text-midnight/40">
-          Pogledajte ceo tim
+          {t("team.viewAll")}
             </p>
           </div>
         </Link>

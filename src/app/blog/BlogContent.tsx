@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SectionWrapper } from "@/components/SectionWrapper";
 import { BLOG_CATEGORIES } from "@/lib/constants";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { useI18n } from "@/lib/i18n/context";
 
 const POSTS = [
   {
@@ -55,7 +56,18 @@ const POSTS = [
 ];
 
 export function BlogContent() {
+  const { t } = useI18n();
   const [activeCategory, setActiveCategory] = useState("Svi");
+
+  const categoryLabel = (cat: string) => {
+    const map: Record<string, string> = {
+      Implantologija: t("blog.category.implantology"),
+      Estetika: t("blog.category.aesthetics"),
+      Ortodoncija: t("blog.category.orthodontics"),
+      "Saveti Lekara": t("blog.category.tips"),
+    };
+    return map[cat] || cat;
+  };
 
   const filtered = activeCategory === "Svi"
     ? POSTS
@@ -67,10 +79,10 @@ export function BlogContent() {
         <div className="absolute inset-0 bg-grid opacity-10" />
         <div className="relative mx-auto max-w-7xl px-6 text-center">
           <h1 className="font-heading text-4xl font-bold text-alabaster md:text-5xl lg:text-6xl">
-            Edukativni Blog
+            {t("blog.heading")}
           </h1>
           <p className="mt-4 text-lg text-alabaster/60 max-w-2xl mx-auto">
-            Stručni saveti i najnovije informacije iz sveta stomatologije
+            {t("blog.subtitle")}
           </p>
         </div>
       </section>
@@ -85,7 +97,7 @@ export function BlogContent() {
                 : "border-midnight/10 text-midnight/60 hover:border-gold/30 hover:text-gold hover:bg-gold/5"
             }`}
           >
-            Svi
+            {t("blog.all")}
           </button>
           {BLOG_CATEGORIES.map((cat) => (
             <button
@@ -97,14 +109,14 @@ export function BlogContent() {
                   : "border-midnight/10 text-midnight/60 hover:border-gold/30 hover:text-gold hover:bg-gold/5"
               }`}
             >
-              {cat}
+              {categoryLabel(cat)}
             </button>
           ))}
         </div>
 
         {filtered.length === 0 ? (
           <p className="text-center text-midnight/40 py-20">
-            Nema članaka u ovoj kategoriji.
+            {t("blog.empty")}
           </p>
         ) : (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -118,10 +130,10 @@ export function BlogContent() {
                 <div className="p-6">
                   <div className="flex items-center gap-3 text-xs text-midnight/40">
                     <span className="font-semibold uppercase tracking-wider text-gold">
-                      {post.category}
+                      {categoryLabel(post.category)}
                     </span>
                     <span>&middot;</span>
-                    <span>{post.readTime} min čitanja</span>
+                    <span>{post.readTime} {t("blog.minRead")}</span>
                   </div>
                   <h3 className="mt-3 font-heading text-lg font-semibold text-midnight transition-colors duration-200 group-hover:text-gold">
                     {post.title}
@@ -130,7 +142,7 @@ export function BlogContent() {
                     {post.excerpt}
                   </p>
                   <div className="mt-4 flex items-center gap-1 text-xs font-medium text-midnight/40 group-hover:text-gold/60 transition-colors">
-                    <span>Pročitaj više</span>
+                    <span>{t("blog.readMore")}</span>
                     <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>

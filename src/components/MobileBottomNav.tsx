@@ -1,8 +1,50 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
+
 export function MobileBottomNav() {
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
+
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+
+    const handleScroll = () => {
+      if (ticking.current) return;
+      ticking.current = true;
+
+      requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        const delta = currentScrollY - lastScrollY.current;
+        const threshold = 50;
+        const atTop = currentScrollY <= threshold;
+        const atBottom =
+          window.innerHeight + Math.ceil(currentScrollY) >= document.documentElement.scrollHeight - 10;
+
+        if (atTop || atBottom) {
+          setHidden(false);
+        } else if (delta > 0 && currentScrollY > threshold) {
+          setHidden(true);
+        } else if (delta < 0) {
+          setHidden(false);
+        }
+
+        lastScrollY.current = currentScrollY;
+        ticking.current = false;
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-midnight/5 bg-alabaster/90 backdrop-blur-xl md:hidden">
+    <nav
+      className={`fixed bottom-0 left-0 right-0 z-50 border-t border-midnight/5 bg-alabaster/90 backdrop-blur-xl md:hidden transition-transform duration-300 ease-in-out will-change-transform ${
+        hidden ? "translate-y-full" : "translate-y-0"
+      }`}
+    >
       <div className="flex items-center justify-around px-2 py-2">
         <NavButton
           href="/"

@@ -1,7 +1,18 @@
+"use client";
+
 import { STATISTICS } from "@/lib/constants";
 import { SectionWrapper } from "@/components/SectionWrapper";
+import { useI18n } from "@/lib/i18n/context";
+
+const statLabelKeys: Record<string, string> = {
+  "Trajno rešenih osmeha": "stat.smiles",
+  "Godina internacionalnog iskustva": "stat.experience",
+  "Bol - kompjuterizovana anestezija": "stat.pain",
+  "Zvanični partner klinike": "stat.partner",
+};
 
 export function TrustBar() {
+  const { t } = useI18n();
   return (
     <SectionWrapper background="white" padding="compact">
       <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
@@ -13,7 +24,7 @@ export function TrustBar() {
             <div className="font-heading text-2xl font-bold text-midnight md:text-3xl">
               {stat.value}
             </div>
-            <div className="mt-1 text-sm text-midnight/60">{stat.label}</div>
+            <div className="mt-1 text-sm text-midnight/60">{t(statLabelKeys[stat.label])}</div>
           </div>
         ))}
       </div>

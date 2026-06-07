@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useI18n } from "@/lib/i18n/context";
 
 type Message = {
   role: "bot" | "user";
@@ -9,15 +10,16 @@ type Message = {
 
 type QuickReply = {
   label: string;
+  labelKey?: string;
   text: string;
 };
 
 const QUICK_REPLIES: QuickReply[] = [
-  { label: "Cene usluga", text: "Koliko koštaju implantati?" },
-  { label: "Zakaži termin", text: "Kako da zakažem termin?" },
-  { label: "Bezbolni tretmani", text: "Da li je tretman bolan?" },
-  { label: "Lokacija", text: "Gde se nalazite?" },
-  { label: "Invisalign", text: "Šta je Invisalign?" },
+  { labelKey: "chat.prices", label: "Cene usluga", text: "Koliko koštaju implantati?" },
+  { labelKey: "chat.book", label: "Zakaži termin", text: "Kako da zakažem termin?" },
+  { labelKey: "chat.painless", label: "Bezbolni tretmani", text: "Da li je tretman bolan?" },
+  { labelKey: "chat.location", label: "Lokacija", text: "Gde se nalazite?" },
+  { labelKey: "chat.invisalign", label: "Invisalign", text: "Šta je Invisalign?" },
 ];
 
 function analyzeIntent(text: string): {
@@ -196,6 +198,7 @@ function buildResponse(intent: {
 }
 
 export function Chatbot() {
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -208,7 +211,7 @@ export function Chatbot() {
       setMessages([
         {
           role: "bot",
-          text: "👋 **Dobrodošli u AURA Dental Clinic!**\n\nJa sam AURA AI asistent. Kako vam mogu pomoći?",
+          text: t("chat.greeting"),
         },
       ]);
     }
@@ -298,8 +301,8 @@ export function Chatbot() {
             </svg>
           </div>
           <div>
-            <p className="text-sm font-semibold text-alabaster">AURA AI Asistent</p>
-            <p className="text-xs text-alabaster/50">Obično odgovara za trenutak</p>
+            <p className="text-sm font-semibold text-alabaster">{t("chat.title")}</p>
+            <p className="text-xs text-alabaster/50">{t("chat.subtitle")}</p>
           </div>
           <button
             onClick={() => setOpen(false)}
@@ -365,7 +368,7 @@ export function Chatbot() {
                   onClick={() => handleSend(qr.text)}
                   className="rounded-full border border-gold/20 bg-gold/5 px-3.5 py-1.5 text-xs font-medium text-gold-dark transition-all duration-200 hover:bg-gold/10 hover:border-gold/40 cursor-pointer"
                 >
-                  {qr.label}
+                  {qr.labelKey ? t(qr.labelKey) : qr.label}
                 </button>
               ))}
             </div>
@@ -381,7 +384,7 @@ export function Chatbot() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Postavite pitanje..."
+              placeholder={t("chat.placeholder")}
               className="flex-1 rounded-xl border border-midnight/10 bg-alabaster px-4 py-2.5 text-sm text-midnight placeholder:text-midnight/30 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20 transition-colors"
             />
             <button

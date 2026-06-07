@@ -4,10 +4,25 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_ITEMS } from "@/lib/constants";
+import { useI18n } from "@/lib/i18n/context";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export function Header() {
   const pathname = usePathname();
+  const { t } = useI18n();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  function navLabel(item: (typeof NAV_ITEMS)[number]): string {
+    const key: Record<string, string> = {
+      "/": "nav.home",
+      "/#services": "nav.services",
+      "/galerija": "nav.gallery",
+      "/tim": "nav.team",
+      "/blog": "nav.blog",
+      "/kontakt": "nav.contact",
+    };
+    return t(key[item.link]);
+  }
 
   function isActive(link: string) {
     if (link === "/") return pathname === "/";
@@ -47,7 +62,7 @@ export function Header() {
                     }}
                     className={linkClass}
                   >
-                    {item.label}
+                    {navLabel(item)}
                   </a>
                 );
               }
@@ -57,13 +72,14 @@ export function Header() {
                   href={item.link}
                   className={linkClass}
                 >
-                  {item.label}
+                  {navLabel(item)}
                 </Link>
               );
             })}
           </div>
 
           <div className="hidden items-center gap-3 md:flex">
+            <LanguageSwitcher />
             <Link
               href="tel:+381113284474"
               className="rounded-lg border border-midnight/10 px-4 py-2 text-sm font-medium text-midnight/70 transition-colors duration-200 hover:border-gold/30 hover:text-gold"
@@ -74,7 +90,7 @@ export function Header() {
               href="/zakazivanje"
               className="inline-flex items-center justify-center rounded-xl bg-midnight px-6 py-2.5 text-sm font-medium text-alabaster shadow-lg shadow-midnight/10 transition-all duration-200 hover:bg-midnight/90 hover:shadow-xl hover:shadow-midnight/20"
             >
-              Zakažite pregled
+              {t("nav.book")}
             </Link>
           </div>
 
@@ -135,7 +151,7 @@ export function Header() {
                   }}
                   className={linkClass}
                 >
-                  {item.label}
+                  {navLabel(item)}
                 </a>
               );
             }
@@ -146,19 +162,22 @@ export function Header() {
                 onClick={() => setMobileOpen(false)}
                 className={linkClass}
               >
-                {item.label}
+                {navLabel(item)}
               </Link>
             );
           })}
         </div>
 
         <div className="mt-auto border-t border-midnight/10 px-4 py-6">
+          <div className="mb-4 flex justify-center">
+            <LanguageSwitcher />
+          </div>
           <Link
             href="/zakazivanje"
             onClick={() => setMobileOpen(false)}
             className="inline-flex w-full items-center justify-center rounded-xl bg-midnight px-6 py-3 text-sm font-medium text-alabaster shadow-lg shadow-midnight/10 transition-all duration-200 hover:bg-midnight/90"
           >
-            Zakažite pregled
+            {t("nav.book")}
           </Link>
           <Link
             href="tel:+381113284474"

@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { Button } from "@/components/Button";
+import { useI18n } from "@/lib/i18n/context";
 
 export function HeroSection() {
+  const { t } = useI18n();
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -25,19 +27,17 @@ export function HeroSection() {
         <div className="max-w-3xl">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold/20 bg-gold/5 px-4 py-1.5 text-xs font-medium text-gold-light">
             <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-            Premium stomatološka klinika u Beogradu
+            {t("hero.badge")}
           </div>
 
           <h1 className="font-heading text-4xl font-bold leading-tight text-alabaster md:text-6xl lg:text-7xl">
-            Osmeh koji inspiriše samopouzdanje.
+            {t("hero.title.line1")}
             <br />
-            <span className="gold-gradient-text">Bez bola, bez kompromisa.</span>
+            <span className="gold-gradient-text">{t("hero.title.line2")}</span>
           </h1>
 
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-alabaster/70 md:text-xl">
-            Doživite novu eru stomatologije u najmodernijoj premium klinici u regionu.
-            Vrhunski švajcarski standardi, lideri u implantologiji i potpuno bezbolni
-            estetski tretmani.
+            {t("hero.subtitle")}
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -45,29 +45,29 @@ export function HeroSection() {
               href="/zakazivanje"
               className="inline-flex items-center justify-center rounded-xl px-8 py-3 text-base font-medium transition-all duration-200 cursor-pointer bg-gold text-alabaster hover:bg-gold-light shadow-lg shadow-gold/20 hover:shadow-xl hover:shadow-gold/30"
             >
-              Zakažite besplatne konsultacije
+              {t("hero.cta")}
             </Link>
             <Button
               variant="emergency"
               size="lg"
               onClick={() => window.location.href = "tel:+381659994474"}
             >
-              Hitan slučaj? Pozovite odmah
+              {t("hero.emergency")}
             </Button>
           </div>
 
           <div className="mt-12 flex items-center gap-6 text-sm text-alabaster/50">
             <div className="flex items-center gap-2">
               <ShieldCheckIcon />
-              <span>Bezbolna procedura</span>
+              <span>{t("hero.trust.painless")}</span>
             </div>
             <div className="flex items-center gap-2">
               <AwardIcon />
-              <span>Straumann® partner</span>
+              <span>{t("hero.trust.partner")}</span>
             </div>
             <div className="flex items-center gap-2">
               <ClockIcon />
-              <span>Brzi oporavak</span>
+              <span>{t("hero.trust.recovery")}</span>
             </div>
           </div>
         </div>

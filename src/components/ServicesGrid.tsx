@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useI18n } from "@/lib/i18n/context";
 import Link from "next/link";
 import { SERVICES } from "@/lib/constants";
 import { SectionWrapper } from "@/components/SectionWrapper";
@@ -24,7 +25,14 @@ const SERVICE_DETAILS: Record<string, { image: string; fullDesc: string; highlig
   },
 };
 
+const serviceKeyMap: Record<string, string> = {
+  implantologija: "implantology",
+  "estetska-stomatologija": "aesthetics",
+  ortodoncija: "orthodontics",
+};
+
 export function ServicesGrid() {
+  const { t } = useI18n();
   const [modalService, setModalService] = useState<string | null>(null);
 
   useEffect(() => {
@@ -43,10 +51,10 @@ export function ServicesGrid() {
     <SectionWrapper background="grid" id="services">
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="font-heading text-3xl font-bold text-midnight md:text-4xl">
-          Naše Premium Usluge
+          {t("services.heading")}
         </h2>
         <p className="mt-4 text-midnight/60">
-          Vrhunska stomatološka rešenja prilagođena vašim potrebama
+          {t("services.subtitle")}
         </p>
       </div>
 
@@ -61,13 +69,13 @@ export function ServicesGrid() {
               <ServiceIcon name={service.icon} />
             </div>
             <h3 className="font-heading text-xl font-semibold text-midnight">
-              {service.title}
+              {t(`services.${serviceKeyMap[service.id]}.title`)}
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-midnight/60">
-              {service.description}
+              {t(`services.${serviceKeyMap[service.id]}.desc`)}
             </p>
             <div className="mt-6 flex items-center gap-1 text-sm font-medium text-gold transition-all duration-300 group-hover:gap-2">
-              <span>Saznajte više</span>
+              <span>{t("services.learnMore")}</span>
               <ArrowRightIcon />
             </div>
           </div>
@@ -94,50 +102,50 @@ export function ServicesGrid() {
             </button>
 
             <div className="aspect-[16/9] w-full overflow-hidden">
-              <img src={activeDetail.image} alt={activeService.title} className="h-full w-full object-cover" />
+              <img src={activeDetail.image} alt={t(`services.${serviceKeyMap[activeService.id]}.title`)} className="h-full w-full object-cover" />
             </div>
 
             <div className="p-8">
               <div className="flex items-center gap-2 mb-2">
                 <span className="inline-block h-2 w-2 rounded-full bg-gold" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-gold">Premium usluga</span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-gold">{t("services.premiumBadge")}</span>
               </div>
-              <h3 className="font-heading text-2xl font-bold text-midnight">{activeService.title}</h3>
-              <p className="mt-3 text-midnight/60 leading-relaxed">{activeDetail.fullDesc}</p>
+              <h3 className="font-heading text-2xl font-bold text-midnight">{t(`services.${serviceKeyMap[activeService.id]}.title`)}</h3>
+              <p className="mt-3 text-midnight/60 leading-relaxed">{t(`services.${serviceKeyMap[activeService.id]}.fullDesc`)}</p>
 
               <div className="mt-6 grid grid-cols-2 gap-4">
                 <div className="rounded-xl bg-gold/5 px-4 py-3">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-gold/70">Cena</p>
-                  <p className="mt-1 font-heading text-xl font-bold text-midnight">{activeService.price}</p>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gold/70">{t("services.price")}</p>
+                  <p className="mt-1 font-heading text-xl font-bold text-midnight">{t(`services.${serviceKeyMap[activeService.id]}.price`)}</p>
                 </div>
                 <div className="rounded-xl bg-gold/5 px-4 py-3">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-gold/70">Trajanje</p>
-                  <p className="mt-1 font-heading text-xl font-bold text-midnight">{activeService.duration}</p>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gold/70">{t("services.duration")}</p>
+                  <p className="mt-1 font-heading text-xl font-bold text-midnight">{t(`services.${serviceKeyMap[activeService.id]}.duration`)}</p>
                 </div>
               </div>
 
               <div className="mt-6 grid grid-cols-2 gap-3">
-                {activeDetail.highlights.map((h) => (
-                  <div key={h} className="flex items-center gap-2 rounded-xl bg-gold/5 px-4 py-3">
+                {activeDetail.highlights.map((_, idx) => (
+                  <div key={idx} className="flex items-center gap-2 rounded-xl bg-gold/5 px-4 py-3">
                     <svg className="h-4 w-4 shrink-0 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4.5 12.75l6 6 9-13.5" />
                     </svg>
-                    <span className="text-sm font-medium text-midnight">{h}</span>
+                    <span className="text-sm font-medium text-midnight">{t(`services.${serviceKeyMap[activeService.id]}.highlight${idx + 1}`)}</span>
                   </div>
                 ))}
               </div>
 
               <div className="mt-6 border-t border-midnight/5 pt-6">
-                <p className="text-sm font-semibold text-midnight">Šta obuhvata?</p>
+                <p className="text-sm font-semibold text-midnight">{t("services.includes")}</p>
                 <ul className="mt-3 flex flex-col gap-2">
-                  {activeService.features.map((f) => (
-                    <li key={f} className="flex items-center gap-3 text-sm text-midnight/60">
+                  {activeService.features.map((_, idx) => (
+                    <li key={idx} className="flex items-center gap-3 text-sm text-midnight/60">
                       <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gold/10">
                         <svg className="h-3 w-3 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
                       </span>
-                      {f}
+                      {t(`services.${serviceKeyMap[activeService.id]}.feature${idx + 1}`)}
                     </li>
                   ))}
                 </ul>
@@ -148,13 +156,13 @@ export function ServicesGrid() {
                   href={activeService.ctaLink}
                   className="flex-1 rounded-xl bg-gold px-6 py-3 text-center text-sm font-semibold text-alabaster transition-all duration-200 hover:bg-gold/90 shadow-lg shadow-gold/20"
                 >
-                  {activeService.cta}
+                  {t(`services.${serviceKeyMap[activeService.id]}.cta`)}
                 </Link>
                 <button
                   onClick={() => setModalService(null)}
                   className="rounded-xl border border-midnight/10 px-6 py-3 text-sm font-medium text-midnight/60 transition-all duration-200 hover:border-gold/30 hover:text-gold cursor-pointer"
                 >
-                  Zatvori
+                  {t("services.close")}
                 </button>
               </div>
             </div>
