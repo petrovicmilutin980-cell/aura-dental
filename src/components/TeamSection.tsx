@@ -21,7 +21,12 @@ export function TeamSection() {
             key={doctor.id}
             className="group rounded-2xl border border-midnight/5 bg-alabaster p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
           >
-            <ImagePlaceholder aspect="3/4" label={doctor.name} className="mb-5 rounded-xl" />
+            <ImagePlaceholder
+              aspect="3/4"
+              label={doctor.name}
+              className="mb-5 rounded-xl"
+              src={doctor.id === "dr-jovanovic" ? "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=600&q=80&fit=crop" : "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80&fit=crop"}
+            />
 
             <h3 className="font-heading text-lg font-semibold text-midnight">
               {doctor.name}

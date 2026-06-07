@@ -5,10 +5,15 @@ import { Button } from "@/components/Button";
 export function HeroSection() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-midnight/80 via-midnight/60 to-midnight/80 z-10" />
+      <div className="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1920&q=80&fit=crop"
+          alt="AURA Dental Clinic"
+          className="h-full w-full object-cover"
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-br from-midnight/85 via-midnight/70 to-midnight/85 z-10" />
       <div className="absolute inset-0 bg-grid opacity-20 z-10" />
-
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-midnight via-midnight/95 to-[#1a1f3a]" />
 
       <div className="absolute inset-0 z-0 opacity-10">
         <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-gold/30 blur-3xl" />

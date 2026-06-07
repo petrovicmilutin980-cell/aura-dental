@@ -30,7 +30,12 @@ export default function TeamPage() {
               key={doctor.id}
               className="rounded-2xl bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl"
             >
-              <ImagePlaceholder aspect="3/4" label={doctor.name} className="mb-6 max-w-sm mx-auto rounded-xl" />
+              <ImagePlaceholder
+                aspect="3/4"
+                label={doctor.name}
+                className="mb-6 max-w-sm mx-auto rounded-xl"
+                src={doctor.id === "dr-jovanovic" ? "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=600&q=80&fit=crop" : "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80&fit=crop"}
+              />
 
               <div className="text-center">
                 <h2 className="font-heading text-2xl font-bold text-midnight">
