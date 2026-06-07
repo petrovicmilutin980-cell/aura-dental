@@ -109,7 +109,7 @@ export function BlogContent() {
                 href={`/blog/${post.slug}`}
                 className="group rounded-2xl bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden cursor-pointer"
               >
-                <ImagePlaceholder aspect="16/9" label={post.title} src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&fit=crop" />
+                <ImagePlaceholder aspect="16/9" label={post.title} src="https://images.unsplash.com/photo-1576092767791-aa7c6b3e5d8a?w=800&q=80&fit=crop" />
                 <div className="p-6">
                   <div className="flex items-center gap-3 text-xs text-midnight/40">
                     <span className="font-semibold uppercase tracking-wider text-gold">

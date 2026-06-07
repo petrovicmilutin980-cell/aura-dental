@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { DOCTORS } from "@/lib/constants";
+import { DOCTORS, DOCTOR_IMAGES } from "@/lib/constants";
 import { SectionWrapper } from "@/components/SectionWrapper";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 
@@ -25,7 +25,7 @@ export function TeamSection() {
               aspect="3/4"
               label={doctor.name}
               className="mb-5 rounded-xl"
-              src={doctor.id === "dr-jovanovic" ? "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=600&q=80&fit=crop" : "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80&fit=crop"}
+              src={DOCTOR_IMAGES[doctor.id] || "https://images.unsplash.com/photo-1613473436719-b8a5e3d2c1f4?w=600&q=80&fit=crop"}
             />
 
             <h3 className="font-heading text-lg font-semibold text-midnight">

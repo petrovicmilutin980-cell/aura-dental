@@ -1,16 +1,7 @@
 import type { Metadata } from "next";
-import { DOCTORS } from "@/lib/constants";
+import { DOCTORS, DOCTOR_IMAGES } from "@/lib/constants";
 import { SectionWrapper } from "@/components/SectionWrapper";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-
-const DOCTOR_IMAGES: Record<string, string> = {
-  "dr-jovanovic": "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=600&q=80&fit=crop",
-  "dr-popovic": "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80&fit=crop",
-  "dr-petrovic": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=600&q=80&fit=crop",
-  "dr-nikolic": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80&fit=crop",
-  "dr-stojanovic": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80&fit=crop",
-  "dr-jankovic": "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&q=80&fit=crop",
-};
 
 export const metadata: Metadata = {
   title: "Naš Tim Eksperata",
@@ -43,7 +34,7 @@ export default function TeamPage() {
                 aspect="3/4"
                 label={doctor.name}
                 className="mb-6 max-w-sm mx-auto rounded-xl"
-                src={DOCTOR_IMAGES[doctor.id] || "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80&fit=crop"}
+                src={DOCTOR_IMAGES[doctor.id] || "https://images.unsplash.com/photo-1595263048036-4b8e9a6f7d2a?w=600&q=80&fit=crop"}
               />
 
               <div className="text-center">

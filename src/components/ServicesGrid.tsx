@@ -8,17 +8,17 @@ import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 
 const SERVICE_DETAILS: Record<string, { image: string; fullDesc: string; highlights: string[] }> = {
   implantologija: {
-    image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=80&fit=crop",
+    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&q=80&fit=crop",
     fullDesc: "Straumann® implantati su zlatni standard u implantologiji. Sa preko 60 godina istraživanja i stopom uspešnosti od preko 98%, pružaju doživotno rešenje za nedostatak zuba. Proces uključuje 3D dijagnostiku, kompjutersko planiranje i bezbolnu ugradnju uz mogućnost sedacije.",
     highlights: ["Doživotna garancija", "Bezbolna procedura", "Prirodan izgled", "Brzi oporavak"],
   },
   "estetska-stomatologija": {
-    image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=80&fit=crop",
+    image: "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=800&q=80&fit=crop",
     fullDesc: "Transformišite svoj osmeh uz naše premium estetske tretmane. Od keramičkih faseta do profesionalnog izbeljivanja Zoom! sistemom, svaki tretman je prilagođen vašim željama uz digitalni Smile Design i minimalno invazivne tehnike.",
     highlights: ["Digitalni dizajn", "Minimalno invazivno", "15–20 godina trajnosti", "Prirodan rezultat"],
   },
   ortodoncija: {
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80&fit=crop",
+    image: "https://images.unsplash.com/photo-1611834475994-802f0e8ca3a6?w=800&q=80&fit=crop",
     fullDesc: "Invisalign® je najnapredniji sistem za ispravljanje zuba bez bravica. Prozirne folije su gotovo nevidljive, udobne i skidaju se za jelo i pranje zuba. Rezultate vidite već na prvoj poseti kroz 3D simulaciju sa preciznošću od 98%.",
     highlights: ["Nevidljive folije", "Bez metala", "6–18 meseci", "3D simulacija"],
   },

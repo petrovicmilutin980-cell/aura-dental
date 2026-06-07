@@ -181,3 +181,12 @@ export const DOCTORS = [
     certifications: ["Ivoclar Vivadent Certified", "Digital Denture Specialist"],
   },
 ] as const;
+
+export const DOCTOR_IMAGES: Record<string, string> = {
+  "dr-jovanovic": "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=600&q=80&fit=crop",
+  "dr-popovic": "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80&fit=crop",
+  "dr-petrovic": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=600&q=80&fit=crop",
+  "dr-nikolic": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80&fit=crop",
+  "dr-stojanovic": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80&fit=crop",
+  "dr-jankovic": "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&q=80&fit=crop",
+};
