@@ -42,7 +42,7 @@ export const SITE = {
 
 export const NAV_ITEMS = [
   { label: "Početna", link: "/" },
-  { label: "Usluge", link: "/usluge/implantologija" },
+  { label: "Usluge", link: "/#services" },
   { label: "Galerija", link: "/galerija" },
   { label: "Tim", link: "/tim" },
   { label: "Blog", link: "/blog" },
