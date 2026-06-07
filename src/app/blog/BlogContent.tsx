@@ -32,7 +32,7 @@ const POSTS = [
     category: "Saveti Lekara",
     date: "2026-04-20",
     readTime: 6,
-    image: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=800&q=80&fit=crop",
+    image: "https://images.pexels.com/photos/8413157/pexels-photo-8413157.jpeg?w=800&q=80",
   },
   {
     slug: "digitalna-stomatologija-buducnost-je-stigla",

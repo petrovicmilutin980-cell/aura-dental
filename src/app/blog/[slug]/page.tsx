@@ -80,7 +80,7 @@ const POSTS: Record<string, {
   },
   "kako-odrzati-bele-zube-nakon-izbeljivanja": {
     title: "Kako održati bele zube nakon izbeljivanja?",
-    image: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=800&q=80&fit=crop",
+    image: "https://images.pexels.com/photos/8413157/pexels-photo-8413157.jpeg?w=800&q=80",
     content: `
       Profesionalno izbeljivanje zuba može transformisati vaš osmeh, ali ključ dugotrajnog rezultata leži u pravilnom održavanju. Uz pravilnu negu, efekat izbeljivanja može trajati i do 3 godine.
 
