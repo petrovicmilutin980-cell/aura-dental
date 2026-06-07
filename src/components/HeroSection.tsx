@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Button } from "@/components/Button";
 
 export function HeroSection() {
@@ -40,13 +41,12 @@ export function HeroSection() {
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Button
-              size="lg"
-              onClick={() => {}}
-              className="bg-gold text-midnight hover:bg-gold-light shadow-lg shadow-gold/20 hover:shadow-xl hover:shadow-gold/30"
+            <Link
+              href="/zakazivanje"
+              className="inline-flex items-center justify-center rounded-xl px-8 py-3 text-base font-medium transition-all duration-200 cursor-pointer bg-gold text-alabaster hover:bg-gold-light shadow-lg shadow-gold/20 hover:shadow-xl hover:shadow-gold/30"
             >
               Zakažite besplatne konsultacije
-            </Button>
+            </Link>
             <Button
               variant="emergency"
               size="lg"
