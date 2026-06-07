@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_ITEMS } from "@/lib/constants";
-import { Button } from "@/components/Button";
 
 export function Header() {
   const pathname = usePathname();
@@ -71,9 +70,12 @@ export function Header() {
             >
               +381 11 328 4474
             </Link>
-            <Button onClick={() => {}} variant="primary">
+            <Link
+              href="/zakazivanje"
+              className="inline-flex items-center justify-center rounded-xl bg-midnight px-6 py-2.5 text-sm font-medium text-alabaster shadow-lg shadow-midnight/10 transition-all duration-200 hover:bg-midnight/90 hover:shadow-xl hover:shadow-midnight/20"
+            >
               Zakažite pregled
-            </Button>
+            </Link>
           </div>
 
           <button
@@ -151,9 +153,13 @@ export function Header() {
         </div>
 
         <div className="mt-auto border-t border-midnight/10 px-4 py-6">
-          <Button onClick={() => setMobileOpen(false)} variant="primary" className="w-full">
+          <Link
+            href="/zakazivanje"
+            onClick={() => setMobileOpen(false)}
+            className="inline-flex w-full items-center justify-center rounded-xl bg-midnight px-6 py-3 text-sm font-medium text-alabaster shadow-lg shadow-midnight/10 transition-all duration-200 hover:bg-midnight/90"
+          >
             Zakažite pregled
-          </Button>
+          </Link>
           <Link
             href="tel:+381113284474"
             className="mt-3 flex items-center justify-center gap-2 rounded-lg border border-midnight/10 px-4 py-3 text-sm font-medium text-midnight/70 transition-colors duration-200 hover:border-gold/30 hover:text-gold"
