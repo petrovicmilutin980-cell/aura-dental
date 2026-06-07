@@ -44,7 +44,7 @@ const SERVICE_DATA: Record<string, {
     ],
     relatedLinks: ["implantologija", "ortodoncija"],
   },
-  ortodoncja: {
+  ortodoncija: {
     title: "Invisalign® Ortodoncija",
     subtitle: "Nevidljive folije za savršen osmeh",
     intro: "Invisalign® je revolucionarni sistem za ispravljanje zuba bez upotrebe bravica. Prozirne folije po meri postepeno pomeraju zube u željeni položaj – diskretno, udobno i efikasno.",

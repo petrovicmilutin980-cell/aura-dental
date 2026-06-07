@@ -19,6 +19,8 @@ export function ServicesGrid() {
           <Link
             key={service.id}
             href={`/usluge/${service.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="group rounded-2xl border border-midnight/5 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gold/5 cursor-pointer"
           >
             <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gold/5 transition-colors duration-300 group-hover:bg-gold/10">
