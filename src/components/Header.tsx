@@ -20,15 +20,36 @@ export function Header() {
           </Link>
 
           <div className="hidden items-center gap-8 md:flex">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.link}
-                href={item.link}
-                className="text-sm font-medium text-midnight/70 transition-colors duration-200 hover:text-gold"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const isHash = item.link.includes("#");
+              if (isHash) {
+                return (
+                  <a
+                    key={item.link}
+                    href={item.link}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const id = item.link.split("#")[1];
+                      const el = document.getElementById(id);
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                      else window.location.href = item.link;
+                    }}
+                    className="text-sm font-medium text-midnight/70 transition-colors duration-200 hover:text-gold"
+                  >
+                    {item.label}
+                  </a>
+                );
+              }
+              return (
+                <Link
+                  key={item.link}
+                  href={item.link}
+                  className="text-sm font-medium text-midnight/70 transition-colors duration-200 hover:text-gold"
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
 
           <div className="hidden items-center gap-3 md:flex">
@@ -79,16 +100,38 @@ export function Header() {
         </div>
 
         <div className="flex flex-col gap-1 px-4 py-6">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.link}
-              href={item.link}
-              onClick={() => setMobileOpen(false)}
-              className="rounded-lg px-4 py-3 text-base font-medium text-midnight/70 transition-colors duration-200 hover:bg-gold/5 hover:text-gold"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const isHash = item.link.includes("#");
+            if (isHash) {
+              return (
+                <a
+                  key={item.link}
+                  href={item.link}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileOpen(false);
+                    const id = item.link.split("#")[1];
+                    const el = document.getElementById(id);
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                    else window.location.href = item.link;
+                  }}
+                  className="rounded-lg px-4 py-3 text-base font-medium text-midnight/70 transition-colors duration-200 hover:bg-gold/5 hover:text-gold"
+                >
+                  {item.label}
+                </a>
+              );
+            }
+            return (
+              <Link
+                key={item.link}
+                href={item.link}
+                onClick={() => setMobileOpen(false)}
+                className="rounded-lg px-4 py-3 text-base font-medium text-midnight/70 transition-colors duration-200 hover:bg-gold/5 hover:text-gold"
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </div>
 
         <div className="mt-auto border-t border-midnight/10 px-4 py-6">

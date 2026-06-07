@@ -110,24 +110,18 @@ export default function ContactPage() {
                 </p>
               </div>
 
-              <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden bg-gradient-to-br from-midnight/5 to-gold/5 shadow-sm flex items-center justify-center">
-                <div className="text-center p-8">
-                  <MapPinIcon />
-                  <p className="mt-3 text-sm font-medium text-midnight/40">
-                    Bulevar Oslobođenja 44, Beograd
-                  </p>
-                  <a
-                    href={`https://maps.google.com/?q=${SITE.address.street},${SITE.address.city}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center gap-1 text-sm text-gold transition-colors duration-200 hover:text-gold-dark"
-                  >
-                    Otvori u Google Maps
-                    <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                    </svg>
-                  </a>
-                </div>
+              <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden shadow-sm">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2830.1433302807006!2d20.45373731553602!3d44.81458947909855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7a8e2e1e2b2b%3A0x3f2e8e2e1e2b2b2!2sBulevar+Oslobođenja+44%2C+11000+Beograd!5e0!3m2!1ssr!2srs!4v1"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Lokacija AURA Dental Clinic"
+                  className="absolute inset-0 w-full h-full"
+                />
               </div>
             </div>
           </div>

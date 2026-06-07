@@ -9,18 +9,18 @@ import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 const SERVICE_DETAILS: Record<string, { image: string; fullDesc: string; highlights: string[] }> = {
   implantologija: {
     image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=80&fit=crop",
-    fullDesc: "Straumann® implantati su zlatni standard u implantologiji. Sa preko 60 godina istraživanja i stopom uspešnosti od preko 98%, pružaju doživotno rešenje za nedostatak zuba. Proces uključuje 3D dijagnostiku, kompjutersko planiranje i bezbolnu ugradnju.",
+    fullDesc: "Straumann® implantati su zlatni standard u implantologiji. Sa preko 60 godina istraživanja i stopom uspešnosti od preko 98%, pružaju doživotno rešenje za nedostatak zuba. Proces uključuje 3D dijagnostiku, kompjutersko planiranje i bezbolnu ugradnju uz mogućnost sedacije.",
     highlights: ["Doživotna garancija", "Bezbolna procedura", "Prirodan izgled", "Brzi oporavak"],
   },
   "estetska-stomatologija": {
     image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=80&fit=crop",
-    fullDesc: "Transformišite svoj osmeh uz naše premium estetske tretmane. Od keramičkih faseta do profesionalnog izbeljivanja Zoom! sistemom, svaki tretman je prilagođen vašim željama i potrebama.",
-    highlights: ["Digitalni dizajn", "Minimalno invazivno", "15-20 godina trajnosti", "Prirodan rezultat"],
+    fullDesc: "Transformišite svoj osmeh uz naše premium estetske tretmane. Od keramičkih faseta do profesionalnog izbeljivanja Zoom! sistemom, svaki tretman je prilagođen vašim željama uz digitalni Smile Design i minimalno invazivne tehnike.",
+    highlights: ["Digitalni dizajn", "Minimalno invazivno", "15–20 godina trajnosti", "Prirodan rezultat"],
   },
   ortodoncija: {
     image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80&fit=crop",
-    fullDesc: "Invisalign® je najnapredniji sistem za ispravljanje zuba bez bravica. Prozirne folije su gotovo nevidljive, udobne i skidaju se za jelo i pranje zuba. Rezultate vidite već na prvoj poseti kroz 3D simulaciju.",
-    highlights: ["Nevidljive folije", "Bez metala", "6-18 meseci", "3D simulacija"],
+    fullDesc: "Invisalign® je najnapredniji sistem za ispravljanje zuba bez bravica. Prozirne folije su gotovo nevidljive, udobne i skidaju se za jelo i pranje zuba. Rezultate vidite već na prvoj poseti kroz 3D simulaciju sa preciznošću od 98%.",
+    highlights: ["Nevidljive folije", "Bez metala", "6–18 meseci", "3D simulacija"],
   },
 };
 
@@ -105,6 +105,17 @@ export function ServicesGrid() {
               <h3 className="font-heading text-2xl font-bold text-midnight">{activeService.title}</h3>
               <p className="mt-3 text-midnight/60 leading-relaxed">{activeDetail.fullDesc}</p>
 
+              <div className="mt-6 grid grid-cols-2 gap-4">
+                <div className="rounded-xl bg-gold/5 px-4 py-3">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gold/70">Cena</p>
+                  <p className="mt-1 font-heading text-xl font-bold text-midnight">{activeService.price}</p>
+                </div>
+                <div className="rounded-xl bg-gold/5 px-4 py-3">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gold/70">Trajanje</p>
+                  <p className="mt-1 font-heading text-xl font-bold text-midnight">{activeService.duration}</p>
+                </div>
+              </div>
+
               <div className="mt-6 grid grid-cols-2 gap-3">
                 {activeDetail.highlights.map((h) => (
                   <div key={h} className="flex items-center gap-2 rounded-xl bg-gold/5 px-4 py-3">
@@ -116,13 +127,28 @@ export function ServicesGrid() {
                 ))}
               </div>
 
+              <div className="mt-6 border-t border-midnight/5 pt-6">
+                <p className="text-sm font-semibold text-midnight">Šta obuhvata?</p>
+                <ul className="mt-3 flex flex-col gap-2">
+                  {activeService.features.map((f) => (
+                    <li key={f} className="flex items-center gap-3 text-sm text-midnight/60">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gold/10">
+                        <svg className="h-3 w-3 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                      </span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
               <div className="mt-8 flex gap-3">
                 <Link
-                  href={`/usluge/${activeService.id}`}
-                  target="_blank"
-                  className="flex-1 rounded-xl bg-midnight px-6 py-3 text-center text-sm font-semibold text-alabaster transition-all duration-200 hover:bg-midnight/90"
+                  href={activeService.ctaLink}
+                  className="flex-1 rounded-xl bg-gold px-6 py-3 text-center text-sm font-semibold text-alabaster transition-all duration-200 hover:bg-gold/90 shadow-lg shadow-gold/20"
                 >
-                  Detaljno o usluzi
+                  {activeService.cta}
                 </Link>
                 <button
                   onClick={() => setModalService(null)}
