@@ -25,7 +25,7 @@ export function TeamSection() {
               aspect="3/4"
               label={doctor.name}
               className="mb-5 rounded-xl"
-              src={DOCTOR_IMAGES[doctor.id] || "https://images.unsplash.com/photo-1613473436719-b8a5e3d2c1f4?w=600&q=80&fit=crop"}
+              src={DOCTOR_IMAGES[doctor.id] || "https://images.pexels.com/photos/3779704/pexels-photo-3779704.jpeg?w=600&q=80"}
             />
 
             <h3 className="font-heading text-lg font-semibold text-midnight">

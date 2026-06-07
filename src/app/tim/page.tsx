@@ -34,7 +34,7 @@ export default function TeamPage() {
                 aspect="3/4"
                 label={doctor.name}
                 className="mb-6 max-w-sm mx-auto rounded-xl"
-                src={DOCTOR_IMAGES[doctor.id] || "https://images.unsplash.com/photo-1595263048036-4b8e9a6f7d2a?w=600&q=80&fit=crop"}
+                src={DOCTOR_IMAGES[doctor.id] || "https://images.pexels.com/photos/6528869/pexels-photo-6528869.jpeg?w=600&q=80"}
               />
 
               <div className="text-center">

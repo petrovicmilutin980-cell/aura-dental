@@ -13,7 +13,7 @@ const POSTS: Record<string, {
 }> = {
   "sve-sto-treba-da-znate-o-zubnim-implantatima": {
     title: "Sve što treba da znate o zubnim implantatima",
-    image: "https://images.unsplash.com/photo-1601833184696-2e4cc99f362b?w=800&q=80&fit=crop",
+    image: "https://images.pexels.com/photos/3845710/pexels-photo-3845710.jpeg?w=800&q=80",
     content: `
       Zubni implantati predstavljaju revoluciju u modernoj stomatologiji. Oni nisu samo estetsko rešenje – već funkcionalna zamena za koren zuba koja sprečava gubitak koštane mase i čuva zdravlje susednih zuba.
 
@@ -147,7 +147,7 @@ const POSTS: Record<string, {
   },
   "kako-prevazici-strah-od-zubara": {
     title: "Kako prevazići strah od zubara?",
-    image: "https://images.unsplash.com/photo-1611859266235-d5c1e1c37d3e?w=800&q=80&fit=crop",
+    image: "https://images.pexels.com/photos/6812572/pexels-photo-6812572.jpeg?w=800&q=80",
     content: `
       Dentofobija – strah od zubara – pogađa između 15% i 20% svetske populacije. Ako ste i vi među njima, znajte da niste sami i da moderna stomatologija ima rešenja.
 

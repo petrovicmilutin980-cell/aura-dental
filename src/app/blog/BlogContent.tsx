@@ -14,7 +14,7 @@ const POSTS = [
     category: "Implantologija",
     date: "2026-05-15",
     readTime: 8,
-    image: "https://images.unsplash.com/photo-1601833184696-2e4cc99f362b?w=800&q=80&fit=crop",
+    image: "https://images.pexels.com/photos/3845710/pexels-photo-3845710.jpeg?w=800&q=80",
   },
   {
     slug: "nevidljive-folije-za-savrsen-osmeh-invisalign-vodic",
@@ -50,7 +50,7 @@ const POSTS = [
     category: "Saveti Lekara",
     date: "2026-03-28",
     readTime: 5,
-    image: "https://images.unsplash.com/photo-1611859266235-d5c1e1c37d3e?w=800&q=80&fit=crop",
+    image: "https://images.pexels.com/photos/6812572/pexels-photo-6812572.jpeg?w=800&q=80",
   },
 ];
 
