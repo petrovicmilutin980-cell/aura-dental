@@ -67,7 +67,7 @@ const SERVICE_DATA: Record<string, {
     title: "Invisalign® Ortodoncija",
     subtitle: "Nevidljive folije za savršen osmeh",
     intro: "Invisalign® je revolucionarni sistem za ispravljanje zuba bez upotrebe bravica. Prozirne folije po meri postepeno pomeraju zube u željeni položaj – diskretno, udobno i efikasno.",
-    heroImage: "https://images.unsplash.com/photo-1609859681057-155c6e5e7fb4?w=1200&q=80&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&q=80&fit=crop",
     benefits: [
       "Gotovo nevidljive folije",
       "Bez metala i bravica",
@@ -78,7 +78,7 @@ const SERVICE_DATA: Record<string, {
     process: [
       { step: 1, title: "3D Skeniranje", description: "Digitalni otisak iTero skenerom bez kalupa i nelagodnosti za samo 2 minuta.", image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&q=80&fit=crop" },
       { step: 2, title: "Plan Tretmana", description: "Softver simulira svaki korak pomeranja zuba. Konačni rezultat vidite već na prvoj poseti.", image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80&fit=crop" },
-      { step: 3, title: "Folije po Meri", description: "Serija prozirnih folija koje menjate na 1-2 nedelje. Svaka nastavlja pomeranje zuba.", image: "https://images.unsplash.com/photo-1609859681057-155c6e5e7fb4?w=600&q=80&fit=crop" },
+      { step: 3, title: "Folije po Meri", description: "Serija prozirnih folija koje menjate na 1-2 nedelje. Svaka nastavlja pomeranje zuba.", image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80&fit=crop" },
       { step: 4, title: "Završni Rezultat", description: "Nakon tretmana sledi retainer faza za održavanje postignutih rezultata.", image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=600&q=80&fit=crop" },
     ],
     faq: [

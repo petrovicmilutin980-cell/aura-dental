@@ -7,7 +7,7 @@ import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 const CASES = [
   { id: 1, category: "Implantologija", title: "Totalna rekonstrukcija gornje vilice", src: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=80&fit=crop" },
   { id: 2, category: "Estetika", title: "Kompletna transformacija osmeha - fasete", src: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=80&fit=crop" },
-  { id: 3, category: "Ortodoncija", title: "Invisalign - ispravljanje zuba bez bravica", src: "https://images.unsplash.com/photo-1609859681057-155c6e5e7fb4?w=800&q=80&fit=crop" },
+  { id: 3, category: "Ortodoncija", title: "Invisalign - ispravljanje zuba bez bravica", src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80&fit=crop" },
   { id: 4, category: "Implantologija", title: "All-on-4 implantat most", src: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&fit=crop" },
   { id: 5, category: "Estetika", title: "Izbeljivanje zuba - Zoom", src: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=80&fit=crop" },
   { id: 6, category: "Hirurgija", title: "Koštana augmentacija pre implantacije", src: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=80&fit=crop" },
