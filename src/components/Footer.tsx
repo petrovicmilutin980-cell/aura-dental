@@ -34,13 +34,18 @@ export function Footer() {
               Klinika
             </h4>
             <ul className="space-y-2.5">
-              {["O nama", "Tim", "Karijera", "Kontakt"].map((item) => (
-                <li key={item}>
+              {[
+                { label: "O nama", href: "/" },
+                { label: "Tim", href: "/tim" },
+                { label: "Karijera", href: "/karijera" },
+                { label: "Kontakt", href: "/kontakt" },
+              ].map((item) => (
+                <li key={item.label}>
                   <Link
-                    href="/"
+                    href={item.href}
                     className="text-sm text-alabaster/60 transition-colors duration-200 hover:text-gold"
                   >
-                    {item}
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -54,12 +59,12 @@ export function Footer() {
             <ul className="space-y-2.5">
               {["Implantologija", "Estetika", "Ortodoncija", "Hirurgija"].map((item) => (
                 <li key={item}>
-                  <Link
-                    href="/"
+                  <a
+                    href="/#services"
                     className="text-sm text-alabaster/60 transition-colors duration-200 hover:text-gold"
                   >
                     {item}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>

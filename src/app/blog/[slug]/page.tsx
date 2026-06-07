@@ -41,6 +41,138 @@ const POSTS: Record<string, {
     date: "2026-05-15",
     readTime: 8,
   },
+  "nevidljive-folije-za-savrsen-osmeh-invisalign-vodic": {
+    title: "Nevidljive folije za savršen osmeh – Invisalign® vodič",
+    content: `
+      Invisalign® je revolucionarni sistem za ispravljanje zuba koji koristi niz prozirnih, po meri napravljenih folija (alignera) koje postepeno pomeraju zube u željeni položaj.
+
+      ## Kako funkcioniše?
+
+      Svaka folija se nosi 1-2 nedelje, a zatim se prelazi na sledeću u nizu. Folije su napravljene od medicinskog, BPA-free plastičnog materijala i potpuno su providne.
+
+      ## Ko može da koristi Invisalign?
+
+      Invisalign je pogodan za tinejdžere i odrasle sa blagim do umerenim ortodontskim problemima: prekriveni zubi, razmaci, blagi overbite ili underbite.
+
+      ## Prednosti u odnosu na bravice
+
+      - Gotovo nevidljive – niko neće primetiti da nosite folije
+      - Skidaju se za jelo i pranje zuba – nema restrikcija u ishrani
+      - Udobnije od tradicionalnih bravica
+      - Manje poseta ordinaciji
+
+      ## Proces tretmana
+
+      1. Inicijalna konsultacija i 3D skeniranje
+      2. Digitalni plan tretmana sa 3D simulacijom
+      3. Izrada folija u Invisalign laboratoriji (SAD)
+      4. Nošenje folija 20-22h dnevno
+      5. Periodične provere na 4-6 nedelja
+
+      Prosečno trajanje tretmana je 6 do 18 meseci, u zavisnosti od kompleksnosti slučaja.
+    `,
+    category: "Ortodoncija",
+    date: "2026-05-01",
+    readTime: 10,
+  },
+  "kako-odrzati-bele-zube-nakon-izbeljivanja": {
+    title: "Kako održati bele zube nakon izbeljivanja?",
+    content: `
+      Profesionalno izbeljivanje zuba može transformisati vaš osmeh, ali ključ dugotrajnog rezultata leži u pravilnom održavanju. Uz pravilnu negu, efekat izbeljivanja može trajati i do 3 godine.
+
+      ## Prvih 48 sati su ključni
+
+      Neposredno nakon izbeljivanja, zubne pore su otvorene i zubi su podložniji pigmentaciji. Izbegavajte:
+
+      - Kafu, crni čaj i crno vino
+      - Gazirane sokove (posebno tamne)
+      - Crveno voće i sosove
+      - Pušenje
+
+      ## Preporučeni proizvodi
+
+      - Zubna pasta sa fluoridom i niskom abrazivnošću
+      - Električna četkica sa mekim vlaknima
+      - Konac za zube nakon svakog obroka
+      - Oralni tuš (water flosser) za temeljno čišćenje
+
+      ## Održavanje na duže staze
+
+      Preporučujemo "touch-up" tretman jednom godišnje. Takođe, izbegavajte namirnice koje intenzivno boje zube – ako ih konzumirate, koristite slamčicu i isperite usta vodom odmah nakon.
+
+      ## Redovne posete stomatologu
+
+      Profesionalno čišćenje (poliranje i skidanje kamenca) na svakih 6 meseci produžava efekat izbeljivanja i čuva zdravlje desni.
+    `,
+    category: "Saveti Lekara",
+    date: "2026-04-20",
+    readTime: 6,
+  },
+  "digitalna-stomatologija-buducnost-je-stigla": {
+    title: "Digitalna stomatologija – budućnost je stigla",
+    content: `
+      Digitalna stomatologija nije više budućnost – to je sadašnjost koja menja način na koji se lečimo. U AURA klinici koristimo najsavremeniju digitalnu tehnologiju za precizniju dijagnostiku i bezbolnije tretmane.
+
+      ## CBCT 3D skener
+
+      Konusno-zračna kompjuterizovana tomografija (CBCT) daje trodimenzionalni prikaz vaše vilice, zuba, nerava i sinusa sa preciznošću od 0.1mm. Ovo omogućava:
+
+      - Tačno planiranje implantata
+      - Detekciju skrivenih infekcija
+      - Procenu koštane mase
+
+      ## Intraoralni skener
+
+      Nestali su otisci u silikonu! Intraoralni skener pravi digitalni otisak vaših zuba za nekoliko minuta. Rezultat je precizniji, udobniji i trenutno dostupan na ekranu.
+
+      ## 3D printanje
+
+      Naši 3D printeri izrađuju hirurške šablone za implantate, modele za fasete i privremene radove direktno u klinici – bez čekanja i bez dodatnih troškova.
+
+      ## Prednosti za pacijenta
+
+      - Manje vremena u stolici
+      - Precizniji rezultati
+      - Bez neprijatnih otisaka
+      - Mogućnost da vidite rezultat pre početka tretmana
+    `,
+    category: "Estetika",
+    date: "2026-04-10",
+    readTime: 7,
+  },
+  "kako-prevazici-strah-od-zubara": {
+    title: "Kako prevazići strah od zubara?",
+    content: `
+      Dentofobija – strah od zubara – pogađa između 15% i 20% svetske populacije. Ako ste i vi među njima, znajte da niste sami i da moderna stomatologija ima rešenja.
+
+      ## Zašto se javlja strah?
+
+      Strah od zubara najčešće potiče iz:
+
+      - Negativnog iskustva u detinjstvu
+      - Straha od bola
+      - Osećaja gubitka kontrole
+      - Straha od igala i anestezije
+
+      ## Kako vam AURA pomaže?
+
+      U AURA klinici primenjujemo pristup bez stresa:
+
+      1. **Inicijalni razgovor bez pregleda** – prva poseta je isključivo upoznavanje
+      2. **Kompjuterizovana anestezija** – sistem The Wand® dozira anestetik bezbolno i precizno
+      3. **Sedacija (gas smeha)** – za najzahtevnije pacijente
+      4. **Muzika i entertaintment** – slušalice sa muzikom ili filmom tokom tretmana
+
+      ## Naš savet
+
+      Postavite realna očekivanja. Počnite sa jednostavnim tretmanom (poliranje, pregled) i postepeno gradite poverenje. Naš tim je obučen za rad sa pacijentima koji imaju izražen strah – strpljenje i empatija su naši najvažniji alati.
+
+      Ne dozvolite da strah ugrozi vaše zdravlje. Zakazivanje je besplatno i bez ikakve obaveze.
+    `,
+    category: "Saveti Lekara",
+    date: "2026-03-28",
+    readTime: 5,
+  },
 };
 
 export async function generateMetadata({
