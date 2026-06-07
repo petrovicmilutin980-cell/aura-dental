@@ -18,7 +18,7 @@ const SERVICE_DETAILS: Record<string, { image: string; fullDesc: string; highlig
     highlights: ["Digitalni dizajn", "Minimalno invazivno", "15–20 godina trajnosti", "Prirodan rezultat"],
   },
   ortodoncija: {
-    image: "https://images.unsplash.com/photo-1611834475994-802f0e8ca3a6?w=800&q=80&fit=crop",
+    image: "https://images.pexels.com/photos/3779729/pexels-photo-3779729.jpeg?w=800&q=80",
     fullDesc: "Invisalign® je najnapredniji sistem za ispravljanje zuba bez bravica. Prozirne folije su gotovo nevidljive, udobne i skidaju se za jelo i pranje zuba. Rezultate vidite već na prvoj poseti kroz 3D simulaciju sa preciznošću od 98%.",
     highlights: ["Nevidljive folije", "Bez metala", "6–18 meseci", "3D simulacija"],
   },

@@ -2,11 +2,19 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { NAV_ITEMS } from "@/lib/constants";
 import { Button } from "@/components/Button";
 
 export function Header() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  function isActive(link: string) {
+    if (link === "/") return pathname === "/";
+    if (link.includes("#")) return false;
+    return pathname.startsWith(link);
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -21,7 +29,11 @@ export function Header() {
 
           <div className="hidden items-center gap-8 md:flex">
             {NAV_ITEMS.map((item) => {
+              const active = isActive(item.link);
               const isHash = item.link.includes("#");
+              const linkClass = `text-sm font-medium transition-colors duration-200 hover:text-gold ${
+                active ? "text-gold font-semibold" : "text-midnight/70"
+              }`;
               if (isHash) {
                 return (
                   <a
@@ -34,7 +46,7 @@ export function Header() {
                       if (el) el.scrollIntoView({ behavior: "smooth" });
                       else window.location.href = item.link;
                     }}
-                    className="text-sm font-medium text-midnight/70 transition-colors duration-200 hover:text-gold"
+                    className={linkClass}
                   >
                     {item.label}
                   </a>
@@ -44,7 +56,7 @@ export function Header() {
                 <Link
                   key={item.link}
                   href={item.link}
-                  className="text-sm font-medium text-midnight/70 transition-colors duration-200 hover:text-gold"
+                  className={linkClass}
                 >
                   {item.label}
                 </Link>
@@ -101,7 +113,11 @@ export function Header() {
 
         <div className="flex flex-col gap-1 px-4 py-6">
           {NAV_ITEMS.map((item) => {
+            const active = isActive(item.link);
             const isHash = item.link.includes("#");
+            const linkClass = `rounded-lg px-4 py-3 text-base font-medium transition-colors duration-200 hover:bg-gold/5 hover:text-gold ${
+              active ? "text-gold bg-gold/5 font-semibold" : "text-midnight/70"
+            }`;
             if (isHash) {
               return (
                 <a
@@ -115,7 +131,7 @@ export function Header() {
                     if (el) el.scrollIntoView({ behavior: "smooth" });
                     else window.location.href = item.link;
                   }}
-                  className="rounded-lg px-4 py-3 text-base font-medium text-midnight/70 transition-colors duration-200 hover:bg-gold/5 hover:text-gold"
+                  className={linkClass}
                 >
                   {item.label}
                 </a>
@@ -126,7 +142,7 @@ export function Header() {
                 key={item.link}
                 href={item.link}
                 onClick={() => setMobileOpen(false)}
-                className="rounded-lg px-4 py-3 text-base font-medium text-midnight/70 transition-colors duration-200 hover:bg-gold/5 hover:text-gold"
+                className={linkClass}
               >
                 {item.label}
               </Link>

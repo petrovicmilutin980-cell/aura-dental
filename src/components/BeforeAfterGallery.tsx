@@ -8,9 +8,9 @@ const CASES = [
   { id: 1, category: "Implantologija", title: "Totalna rekonstrukcija gornje vilice", src: "https://images.unsplash.com/photo-1617791160505-6f00504e3519?w=800&q=80&fit=crop" },
   { id: 2, category: "Estetika", title: "Kompletna transformacija osmeha - fasete", src: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80&fit=crop" },
   { id: 3, category: "Ortodoncija", title: "Invisalign - ispravljanje zuba bez bravica", src: "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=800&q=80&fit=crop" },
-  { id: 4, category: "Implantologija", title: "All-on-4 implantat most", src: "https://images.unsplash.com/photo-1607619056574-7b8d3eeffc8c?w=800&q=80&fit=crop" },
+  { id: 4, category: "Implantologija", title: "All-on-4 implantat most", src: "https://images.pexels.com/photos/3952148/pexels-photo-3952148.jpeg?w=800&q=80" },
   { id: 5, category: "Estetika", title: "Izbeljivanje zuba - Zoom", src: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=80&fit=crop" },
-  { id: 6, category: "Hirurgija", title: "Koštana augmentacija pre implantacije", src: "https://images.unsplash.com/photo-1624280157150-4dab0a6074b8?w=800&q=80&fit=crop" },
+  { id: 6, category: "Hirurgija", title: "Koštana augmentacija pre implantacije", src: "https://images.pexels.com/photos/3845553/pexels-photo-3845553.jpeg?w=800&q=80" },
 ];
 
 const FILTERS = ["Svi", "Implantologija", "Estetika", "Ortodoncija", "Hirurgija"];

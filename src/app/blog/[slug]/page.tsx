@@ -9,9 +9,11 @@ const POSTS: Record<string, {
   category: string;
   date: string;
   readTime: number;
+  image: string;
 }> = {
   "sve-sto-treba-da-znate-o-zubnim-implantatima": {
     title: "Sve što treba da znate o zubnim implantatima",
+    image: "https://images.unsplash.com/photo-1601833184696-2e4cc99f362b?w=800&q=80&fit=crop",
     content: `
       Zubni implantati predstavljaju revoluciju u modernoj stomatologiji. Oni nisu samo estetsko rešenje – već funkcionalna zamena za koren zuba koja sprečava gubitak koštane mase i čuva zdravlje susednih zuba.
 
@@ -43,6 +45,7 @@ const POSTS: Record<string, {
   },
   "nevidljive-folije-za-savrsen-osmeh-invisalign-vodic": {
     title: "Nevidljive folije za savršen osmeh – Invisalign® vodič",
+    image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=80&fit=crop",
     content: `
       Invisalign® je revolucionarni sistem za ispravljanje zuba koji koristi niz prozirnih, po meri napravljenih folija (alignera) koje postepeno pomeraju zube u željeni položaj.
 
@@ -77,6 +80,7 @@ const POSTS: Record<string, {
   },
   "kako-odrzati-bele-zube-nakon-izbeljivanja": {
     title: "Kako održati bele zube nakon izbeljivanja?",
+    image: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=800&q=80&fit=crop",
     content: `
       Profesionalno izbeljivanje zuba može transformisati vaš osmeh, ali ključ dugotrajnog rezultata leži u pravilnom održavanju. Uz pravilnu negu, efekat izbeljivanja može trajati i do 3 godine.
 
@@ -110,6 +114,7 @@ const POSTS: Record<string, {
   },
   "digitalna-stomatologija-buducnost-je-stigla": {
     title: "Digitalna stomatologija – budućnost je stigla",
+    image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=80&fit=crop",
     content: `
       Digitalna stomatologija nije više budućnost – to je sadašnjost koja menja način na koji se lečimo. U AURA klinici koristimo najsavremeniju digitalnu tehnologiju za precizniju dijagnostiku i bezbolnije tretmane.
 
@@ -142,6 +147,7 @@ const POSTS: Record<string, {
   },
   "kako-prevazici-strah-od-zubara": {
     title: "Kako prevazići strah od zubara?",
+    image: "https://images.unsplash.com/photo-1611859266235-d5c1e1c37d3e?w=800&q=80&fit=crop",
     content: `
       Dentofobija – strah od zubara – pogađa između 15% i 20% svetske populacije. Ako ste i vi među njima, znajte da niste sami i da moderna stomatologija ima rešenja.
 
@@ -225,7 +231,7 @@ export default async function BlogPostPage({
 
       <article className="py-16 md:py-24 bg-alabaster">
         <div className="mx-auto max-w-3xl px-6">
-          <ImagePlaceholder aspect="16/9" label={post.title} className="mb-10 rounded-2xl" src="https://images.pexels.com/photos/4269936/pexels-photo-4269936.jpeg?w=800&q=80" />
+          <ImagePlaceholder aspect="16/9" label={post.title} className="mb-10 rounded-2xl" src={post.image} />
           <div className="prose prose-lg max-w-none">
             {post.content.split("\n").map((line, i) => {
               if (line.startsWith("## ")) {

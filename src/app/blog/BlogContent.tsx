@@ -14,6 +14,7 @@ const POSTS = [
     category: "Implantologija",
     date: "2026-05-15",
     readTime: 8,
+    image: "https://images.unsplash.com/photo-1601833184696-2e4cc99f362b?w=800&q=80&fit=crop",
   },
   {
     slug: "nevidljive-folije-za-savrsen-osmeh-invisalign-vodic",
@@ -22,6 +23,7 @@ const POSTS = [
     category: "Ortodoncija",
     date: "2026-05-01",
     readTime: 10,
+    image: "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=80&fit=crop",
   },
   {
     slug: "kako-odrzati-bele-zube-nakon-izbeljivanja",
@@ -30,6 +32,7 @@ const POSTS = [
     category: "Saveti Lekara",
     date: "2026-04-20",
     readTime: 6,
+    image: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=800&q=80&fit=crop",
   },
   {
     slug: "digitalna-stomatologija-buducnost-je-stigla",
@@ -38,6 +41,7 @@ const POSTS = [
     category: "Estetika",
     date: "2026-04-10",
     readTime: 7,
+    image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=80&fit=crop",
   },
   {
     slug: "kako-prevazici-strah-od-zubara",
@@ -46,6 +50,7 @@ const POSTS = [
     category: "Saveti Lekara",
     date: "2026-03-28",
     readTime: 5,
+    image: "https://images.unsplash.com/photo-1611859266235-d5c1e1c37d3e?w=800&q=80&fit=crop",
   },
 ];
 
@@ -109,7 +114,7 @@ export function BlogContent() {
                 href={`/blog/${post.slug}`}
                 className="group rounded-2xl bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden cursor-pointer"
               >
-                <ImagePlaceholder aspect="16/9" label={post.title} src="https://images.pexels.com/photos/6812569/pexels-photo-6812569.jpeg?w=800&q=80" />
+                <ImagePlaceholder aspect="16/9" label={post.title} src={post.image} />
                 <div className="p-6">
                   <div className="flex items-center gap-3 text-xs text-midnight/40">
                     <span className="font-semibold uppercase tracking-wider text-gold">
