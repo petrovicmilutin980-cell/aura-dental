@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useI18n } from "@/lib/i18n/context";
 
 type Message = {
@@ -63,15 +63,42 @@ function analyzeIntent(text: string): {
   };
 }
 
+const EN = {
+  emergency: "🚨 **If you have a dental emergency, CALL US IMMEDIATELY!**\n\n**Emergency phone:** [+381 65 999 4474](tel:+381659994474)\n\nOur team is available 24/7 for urgent interventions. If not urgent, we can help you here too — just continue with your question.",
+  greeting: "Hello! 👋 **Welcome to AURA Dental Clinic.**\n\nWe're glad you're here! How can we help you today? You can ask about:\n\n• 💰 **Prices** and services\n• 🦷 **Implants** and aesthetic dentistry\n• 📅 **Booking** appointments\n• ❓ **Anything** you're curious about",
+  thanks: "You're welcome! 🎉 **We're happy we could help.**\n\nIf you have more questions, we're here. You can also call us:\n\n📞 [+381 11 328 4474](tel:+381113284474)\n📧 concierge@auradental.com\n\n**Have a great day!** 😊",
+  cena: "💰 **Our Prices:**\n\n• **Straumann® implants** — from €800 (with crown)\n• **Ceramic veneers** — from €350 per tooth\n• **Invisalign®** — from €1,900 (full treatment)\n• **Zoom whitening** — €350\n• **Routine checkup** — €35\n\n> *Prices are informational. You'll get an exact quote during your free consultation.*\n\n**Want an exact quote?** Book a free consultation!",
+  implantat: "🦷 **Straumann® Dental Implants — Swiss Quality**\n\n**What are implants?** A titanium screw replacing the tooth root, topped with a ceramic crown.\n\n**4-step process:**\n1️⃣ **3D scanning** — CBCT scan for a perfect model (5 seconds)\n2️⃣ **Computer planning** — Simulation before the procedure\n3️⃣ **Pain-free placement** — STA computerized anesthesia\n4️⃣ **CAD/CAM crown** — Robotized fabrication in our in-house lab\n\n✅ Lifetime warranty on the implant\n✅ Over 98% success rate\n✅ Natural look and feel",
+  bol: "😌 **Completely painless treatments — that's our promise.**\n\nWe use the **STA (Single Tooth Anesthesia)** system — computer-controlled local anesthesia that:\n\n• 💉 **Pain-free** — computer controls pressure and speed\n• 🎯 **Precise** — numbs only one tooth\n• ⚡ **Fast** — effect within seconds\n• 😊 **No numbness** — you can speak normally\n\n> Most patients say it's **less uncomfortable than a regular tooth extraction!**\n\nWe also offer **sedation** (medically induced sleep) for major procedures.",
+  invisalign: "😁 **Invisalign® — Clear aligners for a perfect smile**\n\n**What is Invisalign?** A system of clear aligners that gradually straighten teeth — **no brackets, no metal, no pain.**\n\n**Benefits:**\n✅ **Invisible** — hardly anyone notices them\n✅ **Comfortable** — no gum irritation\n✅ **Removable** — eat and brush normally\n✅ **Faster** — 6-18 months, depending on case\n✅ **3D preview** — see results before starting\n\nFull treatment price: from **€1,900**",
+  termin: "📅 **Book an appointment at AURA Clinic**\n\nYou can book **3 ways:**\n\n1️⃣ **Online form** — [Click here](/zakazivanje) (fastest)\n2️⃣ **Phone** — [+381 11 328 4474](tel:+381113284474)\n3️⃣ **Visit us** — Bulevar Oslobođenja 44\n\n**Working hours:**\n• Mon—Fri: 08:00 – 21:00\n• Saturday: 09:00 – 16:00\n\n> **First time with us?** A 20% deposit is required to confirm your appointment.",
+  garancija: "🛡️ **Our Guarantees:**\n\n• **Straumann® implants** — 🏆 **LIFETIME WARRANTY** (official passport)\n• **Ceramic crowns and bridges** — 10 years\n• **Aesthetic work (veneers)** — 5 years\n• **Invisalign® retainers** — 2 years\n\n> Condition is regular check-ups every 6 months. Our work is backed by premium materials and cutting-edge technology.",
+  parking: "🚗 **Free parking for patients!**\n\n• **Location:** Aura Heights underground garage\n• **Price:** **Free** for clinic patients\n• **How:** Tell the security at **Ramp 1**\n  > *„I'm going to AURA Dental Clinic”*\n\n• **Video surveillance** 24/7\n• **Elevator** directly to the clinic (ground floor, building A)",
+  lokacija: "📍 **AURA Dental Clinic**\n\nBulevar Oslobođenja 44\n11000 Belgrade\n**Aura Heights** — ground floor, building A\n\n> *Separate entrance from the street*\n\n[🗺️ **Open in Google Maps**](https://maps.google.com/?q=Bulevar+Oslobođenja+44,+Beograd)",
+  faseta: "✨ **Ceramic Veneers — A perfect smile in just 2 visits**\n\n**What are veneers?** Thin ceramic shells placed on the front surface of teeth.\n\n**Ideal for:**\n• Fixing tooth shape and size\n• Covering discolorations\n• Closing gaps between teeth\n• Complete smile transformation\n\n**Price:** from **€350** per tooth\n**Durability:** 15-20 years with proper care",
+  izbeljivanje: "⚡ **Zoom! Whitening — A brighter smile in 60 minutes**\n\n**Zoom! WhiteSpeed** is the most advanced teeth whitening system:\n\n• ⏱ **Only 60 minutes** in the clinic\n• 🎯 Up to **8 shades whiter** in one visit\n• 😊 No pain or sensitivity (with protective gel)\n• 📅 Results last 1-2 years\n\n**Price:** €350 (full treatment)\n\nYou receive a home maintenance kit after treatment.",
+  hirurgija: "🔬 **Oral surgery — Premium precision**\n\nOur team performs:\n\n• **Bone augmentation** — bone regeneration before implantation\n• **Sinus lift** — sinus elevation for implants\n• **Wisdom tooth extraction** — complex and simple\n• **Cystectomy** — cyst removal\n• **Biopsy** — diagnosing oral lesions\n\nAll procedures are performed with **full anesthesia** and **sedation** as needed.",
+  higijena: "🪥 **Prevention and oral hygiene**\n\n**Professional cleaning** is recommended every **6 months**.\n\n**What's included:**\n• Tartar removal (ultrasound)\n• Teeth polishing\n• Fluoridation\n• Care tips\n\n**Price:** €35 (routine checkup + cleaning)\n\n> *Prevention is always cheaper than treatment!* 💡",
+  general: "Thank you for your question! 😊\n\nYou can ask about:\n\n💰 **Prices** and payment options\n🦷 **Implants** or aesthetic dentistry\n😁 **Invisalign** clear aligners\n📅 **Booking** appointments\n🚗 **Parking** and **location**\n\nOr just tell me what you're interested in — I'm here to help!",
+  booking: "📅 We've opened the booking page in a new tab. If you have more questions, we're here!",
+};
+
 function buildResponse(intent: {
   topic: string;
   urgency: string;
   keywords: string[];
   userText: string;
+  lang: string;
 }): { text: string; suggested?: QuickReply[] } {
+  const isEn = intent.lang === "en";
+  const t = (sr: string, en: string) => isEn ? en : sr;
+
   if (intent.urgency === "emergency") {
     return {
-      text: "🚨 **Ako imate hitan stomatološki problem, ODMAH nas pozovite!**\n\n**Dežurni telefon:** [+381 65 999 4474](tel:+381659994474)\n\nNaš tim je dostupan 24/7 za hitne intervencije. Ukoliko nije hitno, možemo vam pomoći i ovde — samo nastavite sa pitanjem.",
+      text: t(
+        "🚨 **Ako imate hitan stomatološki problem, ODMAH nas pozovite!**\n\n**Dežurni telefon:** [+381 65 999 4474](tel:+381659994474)\n\nNaš tim je dostupan 24/7 za hitne intervencije. Ukoliko nije hitno, možemo vam pomoći i ovde — samo nastavite sa pitanjem.",
+        EN.emergency
+      ),
       suggested: [
         { labelKey: "chat.call", label: "Pozovi hitno", text: "Pozovi hitno" },
         { labelKey: "chat.prices", label: "Cene usluga", text: "Koliko koštaju usluge?" },
@@ -79,17 +106,28 @@ function buildResponse(intent: {
     };
   }
 
-  const greetings = ["zdravo", "ćao", "cao", "helou", "halo", "pozdrav", "dobar dan", "dobro veče", "ej", "hej"];
-  if (greetings.some((g) => intent.userText.toLowerCase().includes(g))) {
+  const srGreetings = ["zdravo", "ćao", "cao", "helou", "halo", "pozdrav", "dobar dan", "dobro veče", "ej", "hej"];
+  const enGreetings = ["hello", "hi", "hey", "good morning", "good afternoon", "good evening", "greetings", "howdy"];
+  const allGreetings = [...srGreetings, ...enGreetings];
+  if (allGreetings.some((g) => intent.userText.toLowerCase().includes(g))) {
     return {
-      text: "Zdravo! 👋 **Dobrodošli u AURA Dental Clinic.**\n\nDrago nam je što ste ovde! Kako vam možemo pomoći danas? Možete pitati o:\n\n• 💰 **Cenama** i uslugama\n• 🦷 **Implantatima** i estetskoj stomatologiji\n• 📅 **Zakazivanju** termina\n• ❓ **Bilo čemu** što vas zanima",
+      text: t(
+        "Zdravo! 👋 **Dobrodošli u AURA Dental Clinic.**\n\nDrago nam je što ste ovde! Kako vam možemo pomoći danas? Možete pitati o:\n\n• 💰 **Cenama** i uslugama\n• 🦷 **Implantatima** i estetskoj stomatologiji\n• 📅 **Zakazivanju** termina\n• ❓ **Bilo čemu** što vas zanima",
+        EN.greeting
+      ),
       suggested: QUICK_REPLIES,
     };
   }
 
-  if (intent.userText.toLowerCase().includes("hvala") || intent.userText.toLowerCase().includes("fala")) {
+  const srThanks = ["hvala", "fala"];
+  const enThanks = ["thank", "thanks", "thank you", "thx", "ty"];
+  const allThanks = [...srThanks, ...enThanks];
+  if (allThanks.some((g) => intent.userText.toLowerCase().includes(g))) {
     return {
-      text: "Nema na čemu! 🎉 **Drago nam je što smo vam pomogli.**\n\nAko imate još pitanja, tu smo. Možete nas i pozvati:\n\n📞 [+381 11 328 4474](tel:+381113284474)\n📧 concierge@auradental.com\n\n**Želimo vam lep dan!** 😊",
+      text: t(
+        "Nema na čemu! 🎉 **Drago nam je što smo vam pomogli.**\n\nAko imate još pitanja, tu smo. Možete nas i pozvati:\n\n📞 [+381 11 328 4474](tel:+381113284474)\n📧 concierge@auradental.com\n\n**Želimo vam lep dan!** 😊",
+        EN.thanks
+      ),
     };
   }
 
@@ -98,14 +136,20 @@ function buildResponse(intent: {
     (kw: string[]) => { text: string; suggested?: QuickReply[] }
   > = {
     cena: () => ({
-      text: "💰 **Cene naših usluga:**\n\n• **Straumann® implantati** — od €800 (sa krunicom)\n• **Keramičke fasete** — od €350 po zubu\n• **Invisalign®** — od €1,900 (kompletan tretman)\n• **Izbeljivanje Zoom** — €350\n• **Rutinski pregled** — €35\n\n> *Cene su informativnog karaktera. Tačnu ponudu dobijate na besplatnim konsultacijama.*\n\n**Želite tačnu ponudu?** Zakažite besplatne konsultacije!",
+      text: t(
+        "💰 **Cene naših usluga:**\n\n• **Straumann® implantati** — od €800 (sa krunicom)\n• **Keramičke fasete** — od €350 po zubu\n• **Invisalign®** — od €1,900 (kompletan tretman)\n• **Izbeljivanje Zoom** — €350\n• **Rutinski pregled** — €35\n\n> *Cene su informativnog karaktera. Tačnu ponudu dobijate na besplatnim konsultacijama.*\n\n**Želite tačnu ponudu?** Zakažite besplatne konsultacije!",
+        EN.cena
+      ),
       suggested: [
         { labelKey: "chat.book", label: "Zakaži termin", text: "Kako da zakažem termin?" },
         { labelKey: "chat.implants", label: "Implantati", text: "Šta su Straumann implantati?" },
       ],
     }),
     implantat: () => ({
-      text: "🦷 **Straumann® Zubni Implantati — Švajcarski kvalitet**\n\n**Šta su implantati?** Titanijumski navrtanj koji zamenjuje koren zuba, sa keramičkom krunicom na vrhu.\n\n**Proces u 4 koraka:**\n1️⃣ **3D skeniranje** — CBCT skener za savršen model (5 sekundi)\n2️⃣ **Kompjutersko planiranje** — Simulacija pre intervencije\n3️⃣ **Bezbolna ugradnja** — STA kompjuterizovana anestezija\n4️⃣ **CAD/CAM krunica** — Robotizovana izrada u internoj laboratoriji\n\n✅ Doživotna garancija na implantat\n✅ Preko 98% uspešnosti\n✅ Prirodan izgled i osećaj",
+      text: t(
+        "🦷 **Straumann® Zubni Implantati — Švajcarski kvalitet**\n\n**Šta su implantati?** Titanijumski navrtanj koji zamenjuje koren zuba, sa keramičkom krunicom na vrhu.\n\n**Proces u 4 koraka:**\n1️⃣ **3D skeniranje** — CBCT skener za savršen model (5 sekundi)\n2️⃣ **Kompjutersko planiranje** — Simulacija pre intervencije\n3️⃣ **Bezbolna ugradnja** — STA kompjuterizovana anestezija\n4️⃣ **CAD/CAM krunica** — Robotizovana izrada u internoj laboratoriji\n\n✅ Doživotna garancija na implantat\n✅ Preko 98% uspešnosti\n✅ Prirodan izgled i osećaj",
+        EN.implantat
+      ),
       suggested: [
         { labelKey: "chat.prices", label: "Cene", text: "Koliko koštaju implantati?" },
         { labelKey: "chat.painless", label: "Bezbolnost", text: "Da li boli ugradnja implantata?" },
@@ -113,7 +157,10 @@ function buildResponse(intent: {
       ],
     }),
     bol: () => ({
-      text: "😌 **Potpuno bezbolni tretmani — to je naše obećanje.**\n\nKoristimo **STA (Single Tooth Anesthesia)** sistem — kompjuterski kontrolisanu lokalnu anesteziju koja:\n\n• 💉 **Bez bola** — računar kontroliše pritisak i brzinu\n• 🎯 **Precizno** — anestezira samo jedan zub\n• ⚡ **Brzo** — efekat za nekoliko sekundi\n• 😊 **Bez utrnulosti** — možete normalno govoriti\n\n> Većina pacijenata kaže da je **manje neprijatno od običnog vađenja zuba!**\n\nTakođe nudimo **sedaciju** (medicinski san) za veće zahvate.",
+      text: t(
+        "😌 **Potpuno bezbolni tretmani — to je naše obećanje.**\n\nKoristimo **STA (Single Tooth Anesthesia)** sistem — kompjuterski kontrolisanu lokalnu anesteziju koja:\n\n• 💉 **Bez bola** — računar kontroliše pritisak i brzinu\n• 🎯 **Precizno** — anestezira samo jedan zub\n• ⚡ **Brzo** — efekat za nekoliko sekundi\n• 😊 **Bez utrnulosti** — možete normalno govoriti\n\n> Većina pacijenata kaže da je **manje neprijatno od običnog vađenja zuba!**\n\nTakođe nudimo **sedaciju** (medicinski san) za veće zahvate.",
+        EN.bol
+      ),
       suggested: [
         { labelKey: "chat.implants", label: "Implantati", text: "Šta su implantati?" },
         { labelKey: "chat.prices", label: "Cene", text: "Koliko koštaju usluge?" },
@@ -121,7 +168,10 @@ function buildResponse(intent: {
       ],
     }),
     invisalign: () => ({
-      text: "😁 **Invisalign® — Nevidljive folije za savršen osmeh**\n\n**Šta je Invisalign?** Sistem providnih folija koje postepeno ispravljaju zube — **bez bravica, bez metala, bez bola.**\n\n**Prednosti:**\n✅ **Nevidljive** — gotovo ih niko ne primećuje\n✅ **Udobne** — bez iritacije desni\n✅ **Skidaju se** — jedete i perete zube normalno\n✅ **Brže** — 6-18 meseci, zavisno od slučaja\n✅ **3D prikaz** — vidite rezultat pre početka\n\nCena kompletnog tretmana: od **€1,900**",
+      text: t(
+        "😁 **Invisalign® — Nevidljive folije za savršen osmeh**\n\n**Šta je Invisalign?** Sistem providnih folija koje postepeno ispravljaju zube — **bez bravica, bez metala, bez bola.**\n\n**Prednosti:**\n✅ **Nevidljive** — gotovo ih niko ne primećuje\n✅ **Udobne** — bez iritacije desni\n✅ **Skidaju se** — jedete i perete zube normalno\n✅ **Brže** — 6-18 meseci, zavisno od slučaja\n✅ **3D prikaz** — vidite rezultat pre početka\n\nCena kompletnog tretmana: od **€1,900**",
+        EN.invisalign
+      ),
       suggested: [
         { labelKey: "chat.prices", label: "Cene", text: "Koliko košta Invisalign?" },
         { labelKey: "chat.book", label: "Zakaži", text: "Kako da zakažem termin?" },
@@ -129,7 +179,10 @@ function buildResponse(intent: {
       ],
     }),
     termin: () => ({
-      text: "📅 **Zakažite termin u AURA klinici**\n\nMožete zakazati na **3 načina:**\n\n1️⃣ **Online forma** — [Kliknite ovde](/zakazivanje) (najbrže)\n2️⃣ **Telefon** — [+381 11 328 4474](tel:+381113284474)\n3️⃣ **Dođite lično** — Bulevar Oslobođenja 44\n\n**Radno vreme:**\n• Pon—Pet: 08:00 – 21:00\n• Subota: 09:00 – 16:00\n\n> **Prvi put kod nas?** Ponestaje vam 20% depozita za potvrdu termina.",
+      text: t(
+        "📅 **Zakažite termin u AURA klinici**\n\nMožete zakazati na **3 načina:**\n\n1️⃣ **Online forma** — [Kliknite ovde](/zakazivanje) (najbrže)\n2️⃣ **Telefon** — [+381 11 328 4474](tel:+381113284474)\n3️⃣ **Dođite lično** — Bulevar Oslobođenja 44\n\n**Radno vreme:**\n• Pon—Pet: 08:00 – 21:00\n• Subota: 09:00 – 16:00\n\n> **Prvi put kod nas?** Ponestaje vam 20% depozita za potvrdu termina.",
+        EN.termin
+      ),
       suggested: [
         { labelKey: "chat.form", label: "Idi na formu", text: "Otvorite stranicu za zakazivanje" },
         { labelKey: "chat.prices", label: "Cene", text: "Koliko koštaju usluge?" },
@@ -137,28 +190,40 @@ function buildResponse(intent: {
       ],
     }),
     garancija: () => ({
-      text: "🛡️ **Naše garancije:**\n\n• **Straumann® implantati** — 🏆 **DOŽIVOTNA GARANCIJA** (zvanični pasoš)\n• **Keramičke krunice i mostovi** — 10 godina\n• **Estetski radovi (fasete)** — 5 godina\n• **Invisalign® retaineri** — 2 godine\n\n> Uslov je redovna šestomesečna kontrola. Naši radovi su podržani vrhunskim materijalima i najsavremenijom tehnologijom.",
+      text: t(
+        "🛡️ **Naše garancije:**\n\n• **Straumann® implantati** — 🏆 **DOŽIVOTNA GARANCIJA** (zvanični pasoš)\n• **Keramičke krunice i mostovi** — 10 godina\n• **Estetski radovi (fasete)** — 5 godina\n• **Invisalign® retaineri** — 2 godine\n\n> Uslov je redovna šestomesečna kontrola. Naši radovi su podržani vrhunskim materijalima i najsavremenijom tehnologijom.",
+        EN.garancija
+      ),
       suggested: [
         { labelKey: "chat.implants", label: "Implantati", text: "Šta su Straumann implantati?" },
         { labelKey: "chat.prices", label: "Cene", text: "Koliko koštaju implantati?" },
       ],
     }),
     parking: () => ({
-      text: "🚗 **Besplatan parking za pacijente!**\n\n• **Lokacija:** Podzemna garaža Aura Heights\n• **Cena:** **Besplatno** za pacijente klinike\n• **Kako:** Javite se obezbeđenju na **Rampi 1**\n  > *„Dolazim u AURA Dental Clinic”*\n\n• **Video nadzor** 24/7\n• **Lift** direktno do klinike (prizemlje, objekat A)",
+      text: t(
+        "🚗 **Besplatan parking za pacijente!**\n\n• **Lokacija:** Podzemna garaža Aura Heights\n• **Cena:** **Besplatno** za pacijente klinike\n• **Kako:** Javite se obezbeđenju na **Rampi 1**\n  > *„Dolazim u AURA Dental Clinic”*\n\n• **Video nadzor** 24/7\n• **Lift** direktno do klinike (prizemlje, objekat A)",
+        EN.parking
+      ),
       suggested: [
         { labelKey: "chat.location", label: "Lokacija", text: "Gde se nalazite?" },
         { labelKey: "chat.book", label: "Zakaži", text: "Kako da zakažem termin?" },
       ],
     }),
     lokacija: () => ({
-      text: "📍 **AURA Dental Clinic**\n\nBulevar Oslobođenja 44\n11000 Beograd\n**Aura Heights** — prizemlje, objekat A\n\n> *Zaseban ulaz sa ulične strane*\n\n[🗺️ **Otvori u Google Maps**](https://maps.google.com/?q=Bulevar+Oslobođenja+44,+Beograd)",
+      text: t(
+        "📍 **AURA Dental Clinic**\n\nBulevar Oslobođenja 44\n11000 Beograd\n**Aura Heights** — prizemlje, objekat A\n\n> *Zaseban ulaz sa ulične strane*\n\n[🗺️ **Otvori u Google Maps**](https://maps.google.com/?q=Bulevar+Oslobođenja+44,+Beograd)",
+        EN.lokacija
+      ),
       suggested: [
         { labelKey: "chat.parking", label: "Parking", text: "Kako je parking?" },
         { labelKey: "chat.book", label: "Zakaži", text: "Kako da zakažem termin?" },
       ],
     }),
     faseta: () => ({
-      text: "✨ **Keramičke fasete — Savršen osmeh za samo 2 posete**\n\n**Šta su fasete?** Tanke keramičke ljuskice koje se postavljaju na prednju stranu zuba.\n\n**Idealan izbor za:**\n• Popravku oblika i veličine zuba\n• Prekrivanje diskoloracija\n• Zatvaranje razmaka između zuba\n• Kompletnu transformaciju osmeha\n\n**Cena:** od **€350** po zubu\n**Trajnost:** 15-20 godina uz pravilno održavanje",
+      text: t(
+        "✨ **Keramičke fasete — Savršen osmeh za samo 2 posete**\n\n**Šta su fasete?** Tanke keramičke ljuskice koje se postavljaju na prednju stranu zuba.\n\n**Idealan izbor za:**\n• Popravku oblika i veličine zuba\n• Prekrivanje diskoloracija\n• Zatvaranje razmaka između zuba\n• Kompletnu transformaciju osmeha\n\n**Cena:** od **€350** po zubu\n**Trajnost:** 15-20 godina uz pravilno održavanje",
+        EN.faseta
+      ),
       suggested: [
         { labelKey: "chat.prices", label: "Cene", text: "Koliko koštaju fasete?" },
         { labelKey: "chat.whitening", label: "Izbeljivanje", text: "Šta je izbeljivanje zuba?" },
@@ -166,7 +231,10 @@ function buildResponse(intent: {
       ],
     }),
     izbeljivanje: () => ({
-      text: "⚡ **Zoom! Izbeljivanje — Bledi osmeh za 60 minuta**\n\n**Zoom! WhiteSpeed** je najnapredniji sistem za izbeljivanje zuba:\n\n• ⏱ **Samo 60 minuta** u ordinaciji\n• 🎯 Do **8 nijansi bledje** u jednoj poseti\n• 😊 Bez bola i osetljivosti (uz zaštitni gel)\n• 📅 Rezultati traju 1-2 godine\n\n**Cena:** €350 (kompletan tretman)\n\nNakon tretmana dobijate komplet za održavanje kod kuće.",
+      text: t(
+        "⚡ **Zoom! Izbeljivanje — Bledi osmeh za 60 minuta**\n\n**Zoom! WhiteSpeed** je najnapredniji sistem za izbeljivanje zuba:\n\n• ⏱ **Samo 60 minuta** u ordinaciji\n• 🎯 Do **8 nijansi bledje** u jednoj poseti\n• 😊 Bez bola i osetljivosti (uz zaštitni gel)\n• 📅 Rezultati traju 1-2 godine\n\n**Cena:** €350 (kompletan tretman)\n\nNakon tretmana dobijate komplet za održavanje kod kuće.",
+        EN.izbeljivanje
+      ),
       suggested: [
         { labelKey: "chat.veneers", label: "Fasete", text: "Šta su keramičke fasete?" },
         { labelKey: "chat.prices", label: "Cene", text: "Koliko koštaju usluge?" },
@@ -174,21 +242,30 @@ function buildResponse(intent: {
       ],
     }),
     hirurgija: () => ({
-      text: "🔬 **Oralna hirurgija — Vrhunska preciznost**\n\nNaš tim izvodi:\n\n• **Koštana augmentacija** — regeneracija kosti pre implantacije\n• **Sinus lift** — podizanje sinusa za implantate\n• **Vađenje umnjaka** — komplikovana i jednostavna\n• **Cistektomija** — uklanjanje cista\n• **Biopsija** — dijagnostika promena u usnoj duplji\n\nSve procedure se izvode uz **potpunu anesteziju** i **sedaciju** po potrebi.",
+      text: t(
+        "🔬 **Oralna hirurgija — Vrhunska preciznost**\n\nNaš tim izvodi:\n\n• **Koštana augmentacija** — regeneracija kosti pre implantacije\n• **Sinus lift** — podizanje sinusa za implantate\n• **Vađenje umnjaka** — komplikovana i jednostavna\n• **Cistektomija** — uklanjanje cista\n• **Biopsija** — dijagnostika promena u usnoj duplji\n\nSve procedure se izvode uz **potpunu anesteziju** i **sedaciju** po potrebi.",
+        EN.hirurgija
+      ),
       suggested: [
         { labelKey: "chat.implants", label: "Implantati", text: "Šta su implantati?" },
         { labelKey: "chat.pain", label: "Bezbolnost", text: "Da li je hirurgija bolna?" },
       ],
     }),
     higijena: () => ({
-      text: "🪥 **Preventiva i oralna higijena**\n\n**Profesionalno čišćenje kamenca** preporučuje se na **6 meseci**.\n\n**Šta uključuje:**\n• Uklanjanje kamenca (ultrazvuk)\n• Poliranje zuba\n• Fluoridacija\n• Saveti za negu\n\n**Cena:** €35 (rutinski pregled + čišćenje)\n\n> *Prevencija je uvek jeftinija od lečenja!* 💡",
+      text: t(
+        "🪥 **Preventiva i oralna higijena**\n\n**Profesionalno čišćenje kamenca** preporučuje se na **6 meseci**.\n\n**Šta uključuje:**\n• Uklanjanje kamenca (ultrazvuk)\n• Poliranje zuba\n• Fluoridacija\n• Saveti za negu\n\n**Cena:** €35 (rutinski pregled + čišćenje)\n\n> *Prevencija je uvek jeftinija od lečenja!* 💡",
+        EN.higijena
+      ),
       suggested: [
         { labelKey: "chat.prices", label: "Cene", text: "Koliko koštaju usluge?" },
         { labelKey: "chat.book", label: "Zakaži", text: "Kako da zakažem termin?" },
       ],
     }),
     general: () => ({
-      text: "Hvala na pitanju! 😊\n\nMožete pitati o:\n\n💰 **Cenama** i načinima plaćanja\n🦷 **Implantatima** ili estetskoj stomatologiji\n😁 **Invisalign** folijama za ispravljanje zuba\n📅 **Zakazivanju** termina\n🚗 **Parkingu** i **lokaciji**\n\nIli mi jednostavno recite šta vas zanima — tu sam da vam pomognem!",
+      text: t(
+        "Hvala na pitanju! 😊\n\nMožete pitati o:\n\n💰 **Cenama** i načinima plaćanja\n🦷 **Implantatima** ili estetskoj stomatologiji\n😁 **Invisalign** folijama za ispravljanje zuba\n📅 **Zakazivanju** termina\n🚗 **Parkingu** i **lokaciji**\n\nIli mi jednostavno recite šta vas zanima — tu sam da vam pomognem!",
+        EN.general
+      ),
       suggested: QUICK_REPLIES,
     }),
   };
@@ -198,13 +275,21 @@ function buildResponse(intent: {
 }
 
 export function Chatbot() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+  const langRef = useRef(locale);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [showQuickReplies, setShowQuickReplies] = useState(true);
   const endRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    langRef.current = locale;
+    if (messages.length > 0) {
+      setMessages([]);
+    }
+  }, [locale]);
 
   useEffect(() => {
     if (messages.length === 0) {
@@ -221,26 +306,26 @@ export function Chatbot() {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
-  const handleSend = (text: string) => {
+  const handleSend = useCallback((text: string) => {
     const msg = text.trim();
     if (!msg || loading) return;
 
-    if (msg === "Pozovi hitno") {
+    if (msg === "Pozovi hitno" || msg === "Call now") {
       window.location.href = "tel:+381659994474";
       return;
     }
 
-    if (msg === "Otvorite stranicu za zakazivanje") {
+    if (msg === "Otvorite stranicu za zakazivanje" || msg === "Open booking page") {
       window.open("/zakazivanje", "_blank");
       setMessages((prev) => [
         ...prev,
         {
           role: "user",
-          text: "Otvorite stranicu za zakazivanje",
+          text: msg,
         },
         {
           role: "bot",
-          text: "📅 Otvorili smo stranicu za zakazivanje u novom tabu. Ako imate još pitanja, tu smo!",
+          text: langRef.current === "en" ? EN.booking : "📅 Otvorili smo stranicu za zakazivanje u novom tabu. Ako imate još pitanja, tu smo!",
         },
       ]);
       return;
@@ -253,7 +338,7 @@ export function Chatbot() {
 
     setTimeout(() => {
       const intent = analyzeIntent(msg);
-      const response = buildResponse({ ...intent, userText: msg });
+      const response = buildResponse({ ...intent, userText: msg, lang: langRef.current });
       setMessages((prev) => [
         ...prev,
         { role: "bot", text: response.text },
@@ -263,7 +348,7 @@ export function Chatbot() {
         setShowQuickReplies(true);
       }
     }, 800);
-  };
+  }, [loading]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {

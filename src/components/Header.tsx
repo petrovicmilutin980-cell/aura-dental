@@ -152,14 +152,7 @@ export function Header() {
       </div>
 
       <div
-        className={`fixed inset-0 z-40 bg-midnight/60 transition-opacity duration-300 md:hidden ${
-          mobileOpen ? "opacity-100" : "pointer-events-none opacity-0"
-        }`}
-        onClick={() => setMobileOpen(false)}
-      />
-
-      <div
-        className={`fixed right-0 top-0 z-50 flex h-full w-72 flex-col bg-alabaster shadow-2xl transition-transform duration-300 md:hidden ${
+        className={`fixed inset-0 z-50 flex h-full w-full flex-col bg-white shadow-2xl transition-transform duration-300 md:hidden ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -226,7 +219,7 @@ export function Header() {
           </Link>
           <Link
             href="tel:+381113284474"
-            className="mt-3 flex items-center justify-center gap-2 rounded-lg border border-midnight/10 px-4 py-3 text-sm font-medium text-midnight/70 transition-colors duration-200 hover:border-gold/30 hover:text-gold"
+            className="mt-3 flex items-center justify-center gap-2 rounded-lg border border-midnight/20 px-4 py-3 text-sm font-medium text-midnight transition-colors duration-200 hover:border-gold/30 hover:text-gold"
           >
             <PhoneIcon className="h-4 w-4" />
             +381 11 328 4474
