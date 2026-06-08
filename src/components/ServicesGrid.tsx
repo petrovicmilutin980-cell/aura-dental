@@ -69,6 +69,9 @@ export function ServicesGrid() {
           <div
             key={service.id}
             onClick={() => setModalService(service.id)}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setModalService(service.id); } }}
+            role="button"
+            tabIndex={0}
             className="group rounded-2xl border border-midnight/5 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gold/5 cursor-pointer"
           >
             <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gold/5 transition-colors duration-300 group-hover:bg-gold/10">
@@ -80,10 +83,13 @@ export function ServicesGrid() {
             <p className="mt-3 text-sm leading-relaxed text-midnight/60">
               {t(`services.${serviceKeyMap[service.id]}.desc`)}
             </p>
-            <div className="mt-6 flex items-center gap-1 text-sm font-medium text-gold transition-all duration-300 group-hover:gap-2">
+            <button
+              onClick={(e) => { e.stopPropagation(); setModalService(service.id); }}
+              className="mt-6 flex items-center gap-1 text-sm font-medium text-gold transition-all duration-300 hover:gap-2 cursor-pointer"
+            >
               <span>{t("services.learnMore")}</span>
               <ArrowRightIcon />
-            </div>
+            </button>
           </div>
         ))}
       </div>

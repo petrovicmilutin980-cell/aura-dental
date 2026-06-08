@@ -92,7 +92,7 @@ export function MobileBottomNav() {
 }
 
 const SITE_PHONE = "+381113284474";
-const SITE_WA = "381113284474";
+const SITE_WA = "381659994474";
 
 function NavButton({
   href,

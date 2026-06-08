@@ -354,7 +354,7 @@ export function Chatbot() {
     <>
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gold text-midnight shadow-lg shadow-gold/30 transition-all duration-200 hover:scale-110 hover:shadow-xl cursor-pointer"
+        className="fixed bottom-20 md:bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gold text-midnight shadow-lg shadow-gold/30 transition-all duration-200 hover:scale-110 hover:shadow-xl cursor-pointer"
         aria-label="Open chat"
       >
         {open ? (
@@ -369,7 +369,7 @@ export function Chatbot() {
       </button>
 
       <div
-        className={`fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] rounded-2xl bg-white shadow-2xl border border-midnight/5 transition-all duration-300 origin-bottom-right ${
+        className={`fixed bottom-36 md:bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] rounded-2xl bg-white shadow-2xl border border-midnight/5 transition-all duration-300 origin-bottom-right ${
           open ? "scale-100 opacity-100" : "scale-0 opacity-0 pointer-events-none"
         }`}
       >

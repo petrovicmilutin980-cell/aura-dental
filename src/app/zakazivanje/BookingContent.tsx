@@ -36,7 +36,7 @@ export function BookingContent() {
                 <div className="mt-4 space-y-4 text-sm">
                   <div>
                     <p className="font-medium text-midnight">{t("contact.phone")}</p>
-                    <a href={`tel:${SITE.phone.reception}`} className="text-midnight/60 hover:text-gold transition-colors">
+                    <a href={`tel:${SITE.phone.reception.replace(/\s/g, "")}`} className="text-midnight/60 hover:text-gold transition-colors">
                       {SITE.phone.reception}
                     </a>
                   </div>

@@ -12,7 +12,7 @@ export const SITE = {
   phone: {
     reception: "+381 11 328 4474",
     emergency: "+381 65 999 4474",
-    whatsapp: "wa.me/381113284474",
+    whatsapp: "381659994474",
   },
   address: {
     street: "Bulevar Oslobođenja 44",

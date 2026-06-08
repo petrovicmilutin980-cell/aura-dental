@@ -97,7 +97,7 @@ export function Footer() {
               <li>{SITE.address.city}</li>
               <li>
                 <a
-                  href={`tel:${SITE.phone.reception}`}
+                  href={`tel:${SITE.phone.reception.replace(/\s/g, "")}`}
                   className="transition-colors duration-200 hover:text-gold"
                 >
                   {SITE.phone.reception}
@@ -145,9 +145,9 @@ export function Footer() {
             <div className="space-y-3">
               <h5 className="text-sm font-semibold text-alabaster/80">{t("footer.parking")}</h5>
               <p className="text-xs text-alabaster/50">
-                {SITE.parking.type} — {SITE.parking.cost}
+                {t("footer.parkingType")} — {t("footer.parkingCost")}
                 <br />
-                {SITE.parking.instructions}
+                {t("footer.parkingInstructions")}
               </p>
             </div>
 

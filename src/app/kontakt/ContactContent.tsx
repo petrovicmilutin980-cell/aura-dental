@@ -33,7 +33,7 @@ export function ContactContent() {
                     icon={<PhoneIcon />}
                     label={t("contact.phone")}
                     value={SITE.phone.reception}
-                    href={`tel:${SITE.phone.reception}`}
+                    href={`tel:${SITE.phone.reception.replace(/\s/g, "")}`}
                   />
                   <ContactItem
                     icon={<EmergencyIcon />}
