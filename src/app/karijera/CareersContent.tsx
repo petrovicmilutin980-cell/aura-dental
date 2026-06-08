@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useRef } from "react";
 import { SectionWrapper } from "@/components/SectionWrapper";
 import { useI18n } from "@/lib/i18n/context";
 
@@ -55,7 +56,17 @@ const BENEFITS = [
 ];
 
 export function CareersContent() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+  const [formName, setFormName] = useState("");
+  const [formEmail, setFormEmail] = useState("");
+  const [formPhone, setFormPhone] = useState("");
+  const [formMessage, setFormMessage] = useState("");
+  const [formCv, setFormCv] = useState<File | null>(null);
+  const [selectedPosition, setSelectedPosition] = useState("");
+  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const formRef = useRef<HTMLDivElement>(null);
+  const cvInputRef = useRef<HTMLInputElement>(null);
 
   const benefitKeys = [
     { title: "careers.benefit1", desc: "careers.benefit1Desc" },
@@ -70,6 +81,54 @@ export function CareersContent() {
     { title: "careers.position3", desc: "careers.position3Desc", type: "careers.fullTime" },
     { title: "careers.position4", desc: "careers.position4Desc", type: "careers.partTime" },
   ];
+
+  function scrollToForm(posTitle: string) {
+    setSelectedPosition(posTitle);
+    setFormStatus("idle");
+    setFormErrors({});
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  }
+
+  function validateForm(): boolean {
+    const errors: Record<string, string> = {};
+    if (!formName.trim()) errors.name = t("careers.form.requiredName");
+    if (!formEmail.trim()) errors.email = t("careers.form.requiredEmail");
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formEmail)) errors.email = t("careers.form.invalidEmail");
+    if (!formCv) errors.cv = t("careers.form.requiredCv");
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    setFormStatus("sending");
+    const data = new FormData();
+    data.append("name", formName.trim());
+    data.append("email", formEmail.trim());
+    data.append("phone", formPhone.trim());
+    data.append("message", formMessage.trim());
+    data.append("position", selectedPosition);
+    if (formCv) data.append("cv", formCv);
+
+    try {
+      const res = await fetch("/api/careers/apply", { method: "POST", body: data });
+      if (!res.ok) throw new Error("Failed");
+      setFormStatus("success");
+      setFormName("");
+      setFormEmail("");
+      setFormPhone("");
+      setFormMessage("");
+      setFormCv(null);
+      setSelectedPosition("");
+      if (cvInputRef.current) cvInputRef.current.value = "";
+    } catch {
+      setFormStatus("error");
+    }
+  }
 
   return (
     <>
@@ -143,12 +202,13 @@ export function CareersContent() {
                     </span>
                   </div>
                 </div>
-                <Link
-                  href={`mailto:careers@auradental.com?subject=Prijava%20za%20poziciju%3A%20${encodeURIComponent(pos.title)}`}
-                  className="rounded-xl bg-gold px-6 py-3 text-sm font-semibold text-alabaster transition-all duration-200 hover:bg-gold/90 shadow-lg shadow-gold/20"
+                <button
+                  type="button"
+                  onClick={() => scrollToForm(t(positionKeys[i].title))}
+                  className="rounded-xl bg-gold px-6 py-3 text-sm font-semibold text-alabaster transition-all duration-200 hover:bg-gold/90 shadow-lg shadow-gold/20 cursor-pointer"
                 >
                   {t("careers.apply")}
-                </Link>
+                </button>
               </div>
               <p className="mt-4 text-sm text-midnight/60 leading-relaxed">
                 {t(positionKeys[i].desc)}
@@ -167,6 +227,117 @@ export function CareersContent() {
               careers@auradental.com
             </a>
           </p>
+        </div>
+      </SectionWrapper>
+
+      <SectionWrapper background="alabaster" id="apply-section">
+        <div ref={formRef} className="mx-auto max-w-2xl">
+          <h2 className="text-center font-heading text-3xl font-bold text-midnight md:text-4xl">
+            {t("careers.form.title")}
+          </h2>
+
+          {selectedPosition && (
+            <p className="mt-2 text-center text-sm text-midnight/60">
+              {t("careers.apply")}: <span className="font-semibold text-gold">{selectedPosition}</span>
+            </p>
+          )}
+
+          {formStatus === "success" ? (
+            <div className="mt-8 rounded-2xl border border-green-200 bg-green-50 p-8 text-center">
+              <svg className="mx-auto h-12 w-12 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p className="mt-4 text-lg font-semibold text-green-800">{t("careers.form.success")}</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+              <div>
+                <label className="block text-sm font-medium text-midnight mb-1.5">
+                  {t("careers.form.name")} <span className="text-red-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={formName}
+                  onChange={(e) => { setFormName(e.target.value); setFormErrors((prev) => ({ ...prev, name: "" })); }}
+                  className={`w-full rounded-xl border ${formErrors.name ? "border-red-300" : "border-midnight/10"} bg-white px-4 py-3 text-sm text-midnight placeholder:text-midnight/30 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20 transition-colors`}
+                />
+                {formErrors.name && <p className="mt-1 text-xs text-red-500">{formErrors.name}</p>}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-midnight mb-1.5">
+                  {t("careers.form.email")} <span className="text-red-400">*</span>
+                </label>
+                <input
+                  type="email"
+                  value={formEmail}
+                  onChange={(e) => { setFormEmail(e.target.value); setFormErrors((prev) => ({ ...prev, email: "" })); }}
+                  className={`w-full rounded-xl border ${formErrors.email ? "border-red-300" : "border-midnight/10"} bg-white px-4 py-3 text-sm text-midnight placeholder:text-midnight/30 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20 transition-colors`}
+                />
+                {formErrors.email && <p className="mt-1 text-xs text-red-500">{formErrors.email}</p>}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-midnight mb-1.5">
+                  {t("careers.form.phone")}
+                </label>
+                <input
+                  type="tel"
+                  value={formPhone}
+                  onChange={(e) => setFormPhone(e.target.value)}
+                  className="w-full rounded-xl border border-midnight/10 bg-white px-4 py-3 text-sm text-midnight placeholder:text-midnight/30 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20 transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-midnight mb-1.5">
+                  {t("careers.form.cv")} <span className="text-red-400">*</span>
+                </label>
+                <div className={`relative rounded-xl border ${formErrors.cv ? "border-red-300" : "border-midnight/10"} border-dashed bg-white px-4 py-6 text-center transition-colors hover:border-gold/40`}>
+                  <input
+                    ref={cvInputRef}
+                    type="file"
+                    accept=".pdf,.docx,.doc"
+                    onChange={(e) => { setFormCv(e.target.files?.[0] || null); setFormErrors((prev) => ({ ...prev, cv: "" })); }}
+                    className="absolute inset-0 cursor-pointer opacity-0"
+                  />
+                  <svg className="mx-auto h-8 w-8 text-midnight/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                  </svg>
+                  <p className="mt-2 text-sm text-midnight/50">
+                    {formCv ? formCv.name : t("careers.form.cv")}
+                  </p>
+                </div>
+                {formErrors.cv && <p className="mt-1 text-xs text-red-500">{formErrors.cv}</p>}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-midnight mb-1.5">
+                  {t("careers.form.message")}
+                </label>
+                <textarea
+                  rows={4}
+                  value={formMessage}
+                  onChange={(e) => setFormMessage(e.target.value)}
+                  className="w-full rounded-xl border border-midnight/10 bg-white px-4 py-3 text-sm text-midnight placeholder:text-midnight/30 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20 transition-colors resize-none"
+                />
+              </div>
+
+              {formStatus === "error" && (
+                <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                  {t("careers.form.error")}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={formStatus === "sending"}
+                className="flex w-full items-center justify-center rounded-xl bg-midnight px-6 py-3.5 text-sm font-semibold text-alabaster shadow-lg shadow-midnight/10 transition-all duration-200 hover:bg-midnight/90 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+              >
+                {formStatus === "sending" ? t("careers.form.sending") : t("careers.form.submit")}
+              </button>
+            </form>
+          )}
         </div>
       </SectionWrapper>
     </>
