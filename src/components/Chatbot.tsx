@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useI18n } from "@/lib/i18n/context";
 
 type Message = {
@@ -276,7 +276,6 @@ function buildResponse(intent: {
 
 export function Chatbot() {
   const { t, locale } = useI18n();
-  const langRef = useRef(locale);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -285,7 +284,6 @@ export function Chatbot() {
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    langRef.current = locale;
     if (messages.length > 0) {
       setMessages([]);
     }
@@ -306,9 +304,11 @@ export function Chatbot() {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
-  const handleSend = useCallback((text: string) => {
+  function handleSend(text: string) {
     const msg = text.trim();
     if (!msg || loading) return;
+
+    const currentLang = locale;
 
     if (msg === "Pozovi hitno" || msg === "Call now") {
       window.location.href = "tel:+381659994474";
@@ -319,14 +319,8 @@ export function Chatbot() {
       window.open("/zakazivanje", "_blank");
       setMessages((prev) => [
         ...prev,
-        {
-          role: "user",
-          text: msg,
-        },
-        {
-          role: "bot",
-          text: langRef.current === "en" ? EN.booking : "📅 Otvorili smo stranicu za zakazivanje u novom tabu. Ako imate još pitanja, tu smo!",
-        },
+        { role: "user", text: msg },
+        { role: "bot", text: currentLang === "en" ? EN.booking : "📅 Otvorili smo stranicu za zakazivanje u novom tabu. Ako imate još pitanja, tu smo!" },
       ]);
       return;
     }
@@ -338,7 +332,7 @@ export function Chatbot() {
 
     setTimeout(() => {
       const intent = analyzeIntent(msg);
-      const response = buildResponse({ ...intent, userText: msg, lang: langRef.current });
+      const response = buildResponse({ ...intent, userText: msg, lang: locale });
       setMessages((prev) => [
         ...prev,
         { role: "bot", text: response.text },
@@ -348,7 +342,7 @@ export function Chatbot() {
         setShowQuickReplies(true);
       }
     }, 800);
-  }, [loading]);
+  }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
