@@ -39,11 +39,11 @@ export function TeamPageContent() {
                 <h2 className="font-heading text-2xl font-bold text-midnight">
                   {doctor.name}
                 </h2>
-                <p className="mt-1 text-gold font-medium">{doctor.title}</p>
+                <p className="mt-1 text-gold font-medium">{t("doctor." + doctor.id + ".title")}</p>
               </div>
 
               <p className="mt-6 text-midnight/60 leading-relaxed">
-                {doctor.bio}
+                {t("doctor." + doctor.id + ".bio")}
               </p>
 
               <div className="mt-6 grid grid-cols-2 gap-4">
@@ -52,9 +52,9 @@ export function TeamPageContent() {
                     {t("team.specialties")}
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {doctor.specialties.map((s) => (
+                    {doctor.specialties.map((s, i) => (
                       <span key={s} className="rounded-full bg-gold/5 px-3 py-1 text-xs font-medium text-gold-dark">
-                        {s}
+                        {t("doctor." + doctor.id + ".specialty." + i)}
                       </span>
                     ))}
                   </div>
@@ -64,9 +64,9 @@ export function TeamPageContent() {
                     {t("team.languages")}
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {doctor.languages.map((l) => (
+                    {doctor.languages.map((l, i) => (
                       <span key={l} className="rounded-full bg-midnight/5 px-3 py-1 text-xs font-medium text-midnight/60">
-                        {l}
+                        {t("doctor." + doctor.id + ".language." + i)}
                       </span>
                     ))}
                   </div>
@@ -78,9 +78,9 @@ export function TeamPageContent() {
                   {t("team.certifications")}
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  {doctor.certifications.map((c) => (
+                  {doctor.certifications.map((c, i) => (
                     <span key={c} className="rounded-full border border-gold/20 px-3 py-1 text-xs font-medium text-gold-dark">
-                      {c}
+                      {t("doctor." + doctor.id + ".certification." + i)}
                     </span>
                   ))}
                 </div>

@@ -35,18 +35,18 @@ export function TeamSection() {
             <h3 className="font-heading text-lg font-semibold text-midnight">
               {doctor.name}
             </h3>
-            <p className="mt-1 text-sm font-medium text-gold">{doctor.title}</p>
+            <p className="mt-1 text-sm font-medium text-gold">{t("doctor." + doctor.id + ".title")}</p>
             <p className="mt-3 text-sm leading-relaxed text-midnight/60 line-clamp-3">
-              {doctor.bio}
+              {t("doctor." + doctor.id + ".bio")}
             </p>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {doctor.specialties.slice(0, 2).map((s) => (
+              {doctor.specialties.slice(0, 2).map((s, i) => (
                 <span
                   key={s}
                   className="rounded-full bg-gold/5 px-3 py-1 text-xs font-medium text-gold-dark"
                 >
-                  {s}
+                  {t("doctor." + doctor.id + ".specialty." + i)}
                 </span>
               ))}
             </div>
