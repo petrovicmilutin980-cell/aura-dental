@@ -272,6 +272,10 @@ export const translations: Record<Locale, Record<string, string>> = {
     "chat.whitening": "Izbeljivanje",
     "chat.form": "Idi na formu",
     "chat.parking": "Parking",
+    "chat.guarantee": "Garancija",
+    "chat.surgery": "Hirurgija",
+    "chat.hygiene": "Higijena",
+    "chat.pain": "Bezbolnost",
   },
   en: {
     "nav.home": "Home",
@@ -544,5 +548,9 @@ export const translations: Record<Locale, Record<string, string>> = {
     "chat.whitening": "Whitening",
     "chat.form": "Open Form",
     "chat.parking": "Parking",
+    "chat.guarantee": "Guarantee",
+    "chat.surgery": "Surgery",
+    "chat.hygiene": "Hygiene",
+    "chat.pain": "Painless",
   },
 };

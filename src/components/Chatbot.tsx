@@ -168,23 +168,23 @@ function buildResponse(intent: {
     izbeljivanje: () => ({
       text: "⚡ **Zoom! Izbeljivanje — Bledi osmeh za 60 minuta**\n\n**Zoom! WhiteSpeed** je najnapredniji sistem za izbeljivanje zuba:\n\n• ⏱ **Samo 60 minuta** u ordinaciji\n• 🎯 Do **8 nijansi bledje** u jednoj poseti\n• 😊 Bez bola i osetljivosti (uz zaštitni gel)\n• 📅 Rezultati traju 1-2 godine\n\n**Cena:** €350 (kompletan tretman)\n\nNakon tretmana dobijate komplet za održavanje kod kuće.",
       suggested: [
-        { label: "Fasete", text: "Šta su keramičke fasete?" },
-        { label: "Cene", text: "Koliko koštaju usluge?" },
-        { label: "Zakaži", text: "Kako da zakažem termin?" },
+        { labelKey: "chat.veneers", label: "Fasete", text: "Šta su keramičke fasete?" },
+        { labelKey: "chat.prices", label: "Cene", text: "Koliko koštaju usluge?" },
+        { labelKey: "chat.book", label: "Zakaži", text: "Kako da zakažem termin?" },
       ],
     }),
     hirurgija: () => ({
       text: "🔬 **Oralna hirurgija — Vrhunska preciznost**\n\nNaš tim izvodi:\n\n• **Koštana augmentacija** — regeneracija kosti pre implantacije\n• **Sinus lift** — podizanje sinusa za implantate\n• **Vađenje umnjaka** — komplikovana i jednostavna\n• **Cistektomija** — uklanjanje cista\n• **Biopsija** — dijagnostika promena u usnoj duplji\n\nSve procedure se izvode uz **potpunu anesteziju** i **sedaciju** po potrebi.",
       suggested: [
-        { label: "Implantati", text: "Šta su implantati?" },
-        { label: "Bezbolnost", text: "Da li je hirurgija bolna?" },
+        { labelKey: "chat.implants", label: "Implantati", text: "Šta su implantati?" },
+        { labelKey: "chat.pain", label: "Bezbolnost", text: "Da li je hirurgija bolna?" },
       ],
     }),
     higijena: () => ({
       text: "🪥 **Preventiva i oralna higijena**\n\n**Profesionalno čišćenje kamenca** preporučuje se na **6 meseci**.\n\n**Šta uključuje:**\n• Uklanjanje kamenca (ultrazvuk)\n• Poliranje zuba\n• Fluoridacija\n• Saveti za negu\n\n**Cena:** €35 (rutinski pregled + čišćenje)\n\n> *Prevencija je uvek jeftinija od lečenja!* 💡",
       suggested: [
-        { label: "Cene", text: "Koliko koštaju usluge?" },
-        { label: "Zakaži", text: "Kako da zakažem termin?" },
+        { labelKey: "chat.prices", label: "Cene", text: "Koliko koštaju usluge?" },
+        { labelKey: "chat.book", label: "Zakaži", text: "Kako da zakažem termin?" },
       ],
     }),
     general: () => ({
