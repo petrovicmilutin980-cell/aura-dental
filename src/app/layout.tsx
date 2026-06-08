@@ -21,7 +21,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sajt-nine.vercel.app"),
+  metadataBase: new URL("https://aurast.com"),
   title: {
     template: "%s | AURA Dental Clinic",
     default: "AURA Dental Clinic - Premium Stomatologija Beograd",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     title: "AURA Dental Clinic - Premium Stomatologija Beograd",
     description:
       "Najmodernija premium stomatološka klinika u regionu. Vrhunski švajcarski standardi.",
-    url: "https://sajt-nine.vercel.app",
+    url: "https://aurast.com",
     images: [
       {
         url: "https://images.pexels.com/photos/3845554/pexels-photo-3845554.jpeg?w=1200&q=80",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     images: ["https://images.pexels.com/photos/3845554/pexels-photo-3845554.jpeg?w=1200&q=80"],
   },
   alternates: {
-    canonical: "https://sajt-nine.vercel.app",
+    canonical: "https://aurast.com",
   },
 };
 

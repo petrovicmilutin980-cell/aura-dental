@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/", "/_next/"],
     },
-    sitemap: "https://sajt-nine.vercel.app/sitemap.xml",
+    sitemap: "https://aurast.com/sitemap.xml",
   };
 }
