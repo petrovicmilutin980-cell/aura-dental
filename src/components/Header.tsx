@@ -16,6 +16,15 @@ export function Header() {
   const ticking = useRef(false);
 
   useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
+  useEffect(() => {
     lastScrollY.current = window.scrollY;
 
     const handleScroll = () => {
@@ -143,7 +152,7 @@ export function Header() {
       </div>
 
       <div
-        className={`fixed inset-0 z-40 bg-midnight/50 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 z-40 bg-midnight/60 transition-opacity duration-300 md:hidden ${
           mobileOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         onClick={() => setMobileOpen(false)}
@@ -170,7 +179,7 @@ export function Header() {
             const active = isActive(item.link);
             const isHash = item.link.includes("#");
             const linkClass = `rounded-lg px-4 py-3 text-base font-medium transition-colors duration-200 hover:bg-gold/5 hover:text-gold ${
-              active ? "text-gold bg-gold/5 font-semibold" : "text-midnight/70"
+              active ? "text-gold bg-gold/5 font-semibold" : "text-midnight"
             }`;
             if (isHash) {
               return (
