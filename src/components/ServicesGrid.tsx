@@ -23,12 +23,18 @@ const SERVICE_DETAILS: Record<string, { image: string; fullDesc: string; highlig
     fullDesc: "Invisalign® je najnapredniji sistem za ispravljanje zuba bez bravica. Prozirne folije su gotovo nevidljive, udobne i skidaju se za jelo i pranje zuba. Rezultate vidite već na prvoj poseti kroz 3D simulaciju sa preciznošću od 98%.",
     highlights: ["Nevidljive folije", "Bez metala", "6–18 meseci", "3D simulacija"],
   },
+  "oralna-hirurgija": {
+    image: "https://images.pexels.com/photos/6529105/pexels-photo-6529105.jpeg?w=800&q=80",
+    fullDesc: "Naš tim oralnih hirurga izvodi složene procedure uz najsavremeniju tehnologiju i potpunu anesteziju ili sedaciju. Od koštane augmentacije i sinus lifta do vađenja umnjaka i cistektomije, svaka intervencija je pažljivo planirana 3D dijagnostikom.",
+    highlights: ["Bezbolna procedura", "3D planiranje", "Brz oporavak", "Sedacija"],
+  },
 };
 
 const serviceKeyMap: Record<string, string> = {
   implantologija: "implantology",
   "estetska-stomatologija": "aesthetics",
   ortodoncija: "orthodontics",
+  "oralna-hirurgija": "surgery",
 };
 
 export function ServicesGrid() {
@@ -58,7 +64,7 @@ export function ServicesGrid() {
         </p>
       </div>
 
-      <div className="mt-12 grid gap-6 md:grid-cols-3">
+      <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {SERVICES.map((service) => (
           <div
             key={service.id}
@@ -193,6 +199,12 @@ function ServiceIcon({ name }: { name: string }) {
       return (
         <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
+        </svg>
+      );
+    case "Shield":
+      return (
+        <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
         </svg>
       );
     default:

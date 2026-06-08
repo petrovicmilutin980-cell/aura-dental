@@ -111,6 +111,22 @@ export const SERVICES = [
       "Pregled na svakih 4–6 nedelja",
     ],
   },
+  {
+    id: "oralna-hirurgija",
+    title: "Oralna Hirurgija",
+    description: "Precizne hirurške procedure uz potpunu anesteziju",
+    icon: "Shield",
+    price: "Po dogovoru",
+    duration: "45–120 min",
+    cta: "Zakažite konsultacije",
+    ctaLink: "/zakazivanje",
+    features: [
+      "Koštana augmentacija",
+      "Sinus lift procedura",
+      "Vađenje umnjaka",
+      "Sedacija opciono",
+    ],
+  },
 ] as const;
 
 export const ACCREDITATIONS = [
