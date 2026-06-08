@@ -4,15 +4,28 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { useI18n } from "@/lib/i18n/context";
 import { ImagePlaceholder } from "@/components/ImagePlaceholder";
-import { POSTS, type BlogPost } from "@/lib/blog/posts";
+import { POSTS } from "@/lib/blog/posts";
 
 export function BlogDetailContent({ slug }: { slug: string }) {
-  const { t } = useI18n();
-  const post: BlogPost | undefined = POSTS[slug];
+  const { t, locale } = useI18n();
+  const post = POSTS[slug as keyof typeof POSTS];
 
   if (!post) {
     notFound();
   }
+
+  const isEn = locale === "en";
+  const title = isEn ? post.titleEn : post.title;
+  const content = isEn ? post.contentEn : post.content;
+  const categoryLabel = (() => {
+    const map: Record<string, string> = {
+      Implantologija: t("blog.category.implantology"),
+      Estetika: t("blog.category.aesthetics"),
+      Ortodoncija: t("blog.category.orthodontics"),
+      "Saveti Lekara": t("blog.category.tips"),
+    };
+    return map[post.category] || post.category;
+  })();
 
   return (
     <>
@@ -29,21 +42,21 @@ export function BlogDetailContent({ slug }: { slug: string }) {
             {t("blog.back")}
           </Link>
           <div className="flex items-center gap-3 text-sm text-alabaster/50 mb-4">
-            <span className="font-semibold uppercase tracking-wider text-gold">{post.category}</span>
+            <span className="font-semibold uppercase tracking-wider text-gold">{categoryLabel}</span>
             <span>&middot;</span>
             <span>{post.readTime} {t("blog.minRead")}</span>
           </div>
           <h1 className="font-heading text-3xl font-bold text-alabaster md:text-4xl lg:text-5xl">
-            {post.title}
+            {title}
           </h1>
         </div>
       </section>
 
       <article className="py-16 md:py-24 bg-alabaster">
         <div className="mx-auto max-w-3xl px-6">
-          <ImagePlaceholder aspect="16/9" label={post.title} className="mb-10 rounded-2xl" src={post.image} />
+          <ImagePlaceholder aspect="16/9" label={title} className="mb-10 rounded-2xl" src={post.image} />
           <div className="prose prose-lg max-w-none">
-            {post.content.split("\n").map((line, i) => {
+            {content.split("\n").map((line, i) => {
               if (line.startsWith("## ")) {
                 return (
                   <h2 key={i} className="font-heading text-2xl font-bold text-midnight mt-10 mb-4">
