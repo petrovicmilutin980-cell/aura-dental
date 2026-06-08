@@ -73,8 +73,8 @@ function buildResponse(intent: {
     return {
       text: "🚨 **Ako imate hitan stomatološki problem, ODMAH nas pozovite!**\n\n**Dežurni telefon:** [+381 65 999 4474](tel:+381659994474)\n\nNaš tim je dostupan 24/7 za hitne intervencije. Ukoliko nije hitno, možemo vam pomoći i ovde — samo nastavite sa pitanjem.",
       suggested: [
-        { label: "Pozovi hitno", text: "Pozovi hitno" },
-        { label: "Cene usluga", text: "Koliko koštaju usluge?" },
+        { labelKey: "chat.call", label: "Pozovi hitno", text: "Pozovi hitno" },
+        { labelKey: "chat.prices", label: "Cene usluga", text: "Koliko koštaju usluge?" },
       ],
     };
   }
@@ -100,69 +100,69 @@ function buildResponse(intent: {
     cena: () => ({
       text: "💰 **Cene naših usluga:**\n\n• **Straumann® implantati** — od €800 (sa krunicom)\n• **Keramičke fasete** — od €350 po zubu\n• **Invisalign®** — od €1,900 (kompletan tretman)\n• **Izbeljivanje Zoom** — €350\n• **Rutinski pregled** — €35\n\n> *Cene su informativnog karaktera. Tačnu ponudu dobijate na besplatnim konsultacijama.*\n\n**Želite tačnu ponudu?** Zakažite besplatne konsultacije!",
       suggested: [
-        { label: "Zakaži termin", text: "Kako da zakažem termin?" },
-        { label: "Implantati", text: "Šta su Straumann implantati?" },
+        { labelKey: "chat.book", label: "Zakaži termin", text: "Kako da zakažem termin?" },
+        { labelKey: "chat.implants", label: "Implantati", text: "Šta su Straumann implantati?" },
       ],
     }),
     implantat: () => ({
       text: "🦷 **Straumann® Zubni Implantati — Švajcarski kvalitet**\n\n**Šta su implantati?** Titanijumski navrtanj koji zamenjuje koren zuba, sa keramičkom krunicom na vrhu.\n\n**Proces u 4 koraka:**\n1️⃣ **3D skeniranje** — CBCT skener za savršen model (5 sekundi)\n2️⃣ **Kompjutersko planiranje** — Simulacija pre intervencije\n3️⃣ **Bezbolna ugradnja** — STA kompjuterizovana anestezija\n4️⃣ **CAD/CAM krunica** — Robotizovana izrada u internoj laboratoriji\n\n✅ Doživotna garancija na implantat\n✅ Preko 98% uspešnosti\n✅ Prirodan izgled i osećaj",
       suggested: [
-        { label: "Cene", text: "Koliko koštaju implantati?" },
-        { label: "Bezbolnost", text: "Da li boli ugradnja implantata?" },
-        { label: "Zakaži", text: "Kako da zakažem termin?" },
+        { labelKey: "chat.prices", label: "Cene", text: "Koliko koštaju implantati?" },
+        { labelKey: "chat.painless", label: "Bezbolnost", text: "Da li boli ugradnja implantata?" },
+        { labelKey: "chat.book", label: "Zakaži", text: "Kako da zakažem termin?" },
       ],
     }),
     bol: () => ({
       text: "😌 **Potpuno bezbolni tretmani — to je naše obećanje.**\n\nKoristimo **STA (Single Tooth Anesthesia)** sistem — kompjuterski kontrolisanu lokalnu anesteziju koja:\n\n• 💉 **Bez bola** — računar kontroliše pritisak i brzinu\n• 🎯 **Precizno** — anestezira samo jedan zub\n• ⚡ **Brzo** — efekat za nekoliko sekundi\n• 😊 **Bez utrnulosti** — možete normalno govoriti\n\n> Većina pacijenata kaže da je **manje neprijatno od običnog vađenja zuba!**\n\nTakođe nudimo **sedaciju** (medicinski san) za veće zahvate.",
       suggested: [
-        { label: "Implantati", text: "Šta su implantati?" },
-        { label: "Cene", text: "Koliko koštaju usluge?" },
-        { label: "Zakaži", text: "Kako da zakažem termin?" },
+        { labelKey: "chat.implants", label: "Implantati", text: "Šta su implantati?" },
+        { labelKey: "chat.prices", label: "Cene", text: "Koliko koštaju usluge?" },
+        { labelKey: "chat.book", label: "Zakaži", text: "Kako da zakažem termin?" },
       ],
     }),
     invisalign: () => ({
       text: "😁 **Invisalign® — Nevidljive folije za savršen osmeh**\n\n**Šta je Invisalign?** Sistem providnih folija koje postepeno ispravljaju zube — **bez bravica, bez metala, bez bola.**\n\n**Prednosti:**\n✅ **Nevidljive** — gotovo ih niko ne primećuje\n✅ **Udobne** — bez iritacije desni\n✅ **Skidaju se** — jedete i perete zube normalno\n✅ **Brže** — 6-18 meseci, zavisno od slučaja\n✅ **3D prikaz** — vidite rezultat pre početka\n\nCena kompletnog tretmana: od **€1,900**",
       suggested: [
-        { label: "Cene", text: "Koliko košta Invisalign?" },
-        { label: "Zakaži", text: "Kako da zakažem termin?" },
-        { label: "Fasete", text: "Šta su keramičke fasete?" },
+        { labelKey: "chat.prices", label: "Cene", text: "Koliko košta Invisalign?" },
+        { labelKey: "chat.book", label: "Zakaži", text: "Kako da zakažem termin?" },
+        { labelKey: "chat.veneers", label: "Fasete", text: "Šta su keramičke fasete?" },
       ],
     }),
     termin: () => ({
       text: "📅 **Zakažite termin u AURA klinici**\n\nMožete zakazati na **3 načina:**\n\n1️⃣ **Online forma** — [Kliknite ovde](/zakazivanje) (najbrže)\n2️⃣ **Telefon** — [+381 11 328 4474](tel:+381113284474)\n3️⃣ **Dođite lično** — Bulevar Oslobođenja 44\n\n**Radno vreme:**\n• Pon—Pet: 08:00 – 21:00\n• Subota: 09:00 – 16:00\n\n> **Prvi put kod nas?** Ponestaje vam 20% depozita za potvrdu termina.",
       suggested: [
-        { label: "Idi na formu", text: "Otvorite stranicu za zakazivanje" },
-        { label: "Cene", text: "Koliko koštaju usluge?" },
-        { label: "Lokacija", text: "Gde se nalazite?" },
+        { labelKey: "chat.form", label: "Idi na formu", text: "Otvorite stranicu za zakazivanje" },
+        { labelKey: "chat.prices", label: "Cene", text: "Koliko koštaju usluge?" },
+        { labelKey: "chat.location", label: "Lokacija", text: "Gde se nalazite?" },
       ],
     }),
     garancija: () => ({
       text: "🛡️ **Naše garancije:**\n\n• **Straumann® implantati** — 🏆 **DOŽIVOTNA GARANCIJA** (zvanični pasoš)\n• **Keramičke krunice i mostovi** — 10 godina\n• **Estetski radovi (fasete)** — 5 godina\n• **Invisalign® retaineri** — 2 godine\n\n> Uslov je redovna šestomesečna kontrola. Naši radovi su podržani vrhunskim materijalima i najsavremenijom tehnologijom.",
       suggested: [
-        { label: "Implantati", text: "Šta su Straumann implantati?" },
-        { label: "Cene", text: "Koliko koštaju implantati?" },
+        { labelKey: "chat.implants", label: "Implantati", text: "Šta su Straumann implantati?" },
+        { labelKey: "chat.prices", label: "Cene", text: "Koliko koštaju implantati?" },
       ],
     }),
     parking: () => ({
       text: "🚗 **Besplatan parking za pacijente!**\n\n• **Lokacija:** Podzemna garaža Aura Heights\n• **Cena:** **Besplatno** za pacijente klinike\n• **Kako:** Javite se obezbeđenju na **Rampi 1**\n  > *„Dolazim u AURA Dental Clinic”*\n\n• **Video nadzor** 24/7\n• **Lift** direktno do klinike (prizemlje, objekat A)",
       suggested: [
-        { label: "Lokacija", text: "Gde se nalazite?" },
-        { label: "Zakaži", text: "Kako da zakažem termin?" },
+        { labelKey: "chat.location", label: "Lokacija", text: "Gde se nalazite?" },
+        { labelKey: "chat.book", label: "Zakaži", text: "Kako da zakažem termin?" },
       ],
     }),
     lokacija: () => ({
       text: "📍 **AURA Dental Clinic**\n\nBulevar Oslobođenja 44\n11000 Beograd\n**Aura Heights** — prizemlje, objekat A\n\n> *Zaseban ulaz sa ulične strane*\n\n[🗺️ **Otvori u Google Maps**](https://maps.google.com/?q=Bulevar+Oslobođenja+44,+Beograd)",
       suggested: [
-        { label: "Parking", text: "Kako je parking?" },
-        { label: "Zakaži", text: "Kako da zakažem termin?" },
+        { labelKey: "chat.parking", label: "Parking", text: "Kako je parking?" },
+        { labelKey: "chat.book", label: "Zakaži", text: "Kako da zakažem termin?" },
       ],
     }),
     faseta: () => ({
       text: "✨ **Keramičke fasete — Savršen osmeh za samo 2 posete**\n\n**Šta su fasete?** Tanke keramičke ljuskice koje se postavljaju na prednju stranu zuba.\n\n**Idealan izbor za:**\n• Popravku oblika i veličine zuba\n• Prekrivanje diskoloracija\n• Zatvaranje razmaka između zuba\n• Kompletnu transformaciju osmeha\n\n**Cena:** od **€350** po zubu\n**Trajnost:** 15-20 godina uz pravilno održavanje",
       suggested: [
-        { label: "Cene", text: "Koliko koštaju fasete?" },
-        { label: "Izbeljivanje", text: "Šta je izbeljivanje zuba?" },
-        { label: "Zakaži", text: "Kako da zakažem termin?" },
+        { labelKey: "chat.prices", label: "Cene", text: "Koliko koštaju fasete?" },
+        { labelKey: "chat.whitening", label: "Izbeljivanje", text: "Šta je izbeljivanje zuba?" },
+        { labelKey: "chat.book", label: "Zakaži", text: "Kako da zakažem termin?" },
       ],
     }),
     izbeljivanje: () => ({

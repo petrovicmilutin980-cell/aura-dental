@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { SectionWrapper } from "@/components/SectionWrapper";
+import { useI18n } from "@/lib/i18n/context";
 
 const TESTIMONIALS = [
   {
@@ -35,6 +36,7 @@ const TESTIMONIALS = [
 ];
 
 export function TestimonialsSection() {
+  const { t } = useI18n();
   const [active, setActive] = useState(0);
 
   const next = useCallback(() => {
@@ -46,7 +48,7 @@ export function TestimonialsSection() {
     return () => clearInterval(interval);
   }, [next]);
 
-  const t = TESTIMONIALS[active];
+  const testimonial = TESTIMONIALS[active];
 
   return (
     <SectionWrapper background="midnight" id="testimonials">
@@ -57,12 +59,12 @@ export function TestimonialsSection() {
 
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-heading text-3xl font-bold text-alabaster md:text-4xl">
-            Šta Naši Pacijenti Kažu
+            {t("testimonials.heading")}
           </h2>
 
           <div className="mt-10">
             <div className="flex items-center justify-center gap-1">
-              {Array.from({ length: t.rating }).map((_, i) => (
+              {Array.from({ length: testimonial.rating }).map((_, i) => (
                 <svg key={i} className="h-5 w-5 text-gold" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                 </svg>
@@ -70,12 +72,12 @@ export function TestimonialsSection() {
             </div>
 
             <blockquote className="mt-6 text-lg leading-relaxed text-alabaster/80 md:text-xl italic">
-              &ldquo;{t.text}&rdquo;
+              &ldquo;{testimonial.text}&rdquo;
             </blockquote>
 
             <div className="mt-6">
-              <p className="font-semibold text-alabaster">{t.name}</p>
-              <p className="mt-1 text-sm text-gold/70">{t.treatment}</p>
+              <p className="font-semibold text-alabaster">{testimonial.name}</p>
+              <p className="mt-1 text-sm text-gold/70">{testimonial.treatment}</p>
             </div>
           </div>
 

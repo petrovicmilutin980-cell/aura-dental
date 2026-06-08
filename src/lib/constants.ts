@@ -42,6 +42,7 @@ export const SITE = {
 
 export const NAV_ITEMS = [
   { label: "Početna", link: "/" },
+  { label: "O Nama", link: "/o-nama" },
   { label: "Usluge", link: "/#services" },
   { label: "Galerija", link: "/galerija" },
   { label: "Tim", link: "/tim" },

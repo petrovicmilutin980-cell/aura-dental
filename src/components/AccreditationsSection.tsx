@@ -1,12 +1,16 @@
+"use client";
+
 import { ACCREDITATIONS } from "@/lib/constants";
 import { SectionWrapper } from "@/components/SectionWrapper";
+import { useI18n } from "@/lib/i18n/context";
 
 export function AccreditationsSection() {
+  const { t } = useI18n();
   return (
     <SectionWrapper background="white" padding="compact">
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="font-heading text-2xl font-bold text-midnight md:text-3xl">
-          Sertifikati i Partnerstva
+          {t("accreditations.heading")}
         </h2>
       </div>
 

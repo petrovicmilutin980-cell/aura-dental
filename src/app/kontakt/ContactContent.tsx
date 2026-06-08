@@ -118,7 +118,7 @@ export function ContactContent() {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Lokacija AURA Dental Clinic"
+                  title={t("contact.location")}
                   className="absolute inset-0 w-full h-full"
                 />
               </div>

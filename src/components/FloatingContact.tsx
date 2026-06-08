@@ -1,8 +1,10 @@
 "use client";
 
 import { SITE } from "@/lib/constants";
+import { useI18n } from "@/lib/i18n/context";
 
 export function FloatingContact() {
+  const { t } = useI18n();
   return (
     <>
       <div className="fixed bottom-6 left-6 z-50 hidden md:block">
@@ -21,7 +23,7 @@ export function FloatingContact() {
         <a
           href={`tel:${SITE.phone.reception.replace(/\s/g, "")}`}
           className="flex h-14 w-14 items-center justify-center rounded-full bg-gold text-midnight shadow-lg shadow-gold/30 transition-all duration-200 hover:scale-110 hover:shadow-xl"
-          aria-label="Pozovite nas"
+          aria-label={t("hero.emergency")}
         >
           <PhoneIcon />
         </a>

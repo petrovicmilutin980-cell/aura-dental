@@ -10,14 +10,23 @@ export function Footer() {
     <footer className="bg-midnight text-alabaster/80">
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <h3 className="font-heading text-xl font-bold text-alabaster">
-              AURA<span className="text-gold">.</span>
-            </h3>
-            <p className="mt-3 text-sm leading-relaxed text-alabaster/60">
-              {SITE.slogan}
-            </p>
-            <div className="mt-6 flex gap-3">
+            <div>
+              <h3 className="font-heading text-xl font-bold text-alabaster">
+                AURA<span className="text-gold">.</span>
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-alabaster/60">
+                {SITE.slogan}
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-alabaster/50">
+                {t("footer.aboutText")}
+              </p>
+              <Link
+                href="/o-nama"
+                className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-gold transition-colors hover:text-gold-light"
+              >
+                {t("footer.readMore")} &rarr;
+              </Link>
+              <div className="mt-6 flex gap-3">
               <SocialLink href={SITE.social.instagram} label="Instagram">
                 <InstagramIcon />
               </SocialLink>
@@ -39,10 +48,10 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5">
               {[
-                { label: t("footer.about"), href: "/" },
-                { label: "Tim", href: "/tim" },
+                { label: t("footer.about"), href: "/o-nama" },
+                { label: t("nav.team"), href: "/tim" },
                 { label: "Karijera", href: "/karijera" },
-                { label: "Kontakt", href: "/kontakt" },
+                { label: t("nav.contact"), href: "/kontakt" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link
@@ -61,13 +70,18 @@ export function Footer() {
               {t("footer.services")}
             </h4>
             <ul className="space-y-2.5">
-              {["Implantologija", "Estetika", "Ortodoncija", "Hirurgija"].map((item) => (
-                <li key={item}>
+              {([
+                "services.implantology.title",
+                "services.aesthetics.title",
+                "services.orthodontics.title",
+                "gallery.surgery",
+              ] as const).map((key) => (
+                <li key={key}>
                   <a
                     href="/#services"
                     className="text-sm text-alabaster/60 transition-colors duration-200 hover:text-gold"
                   >
-                    {item}
+                    {t(key)}
                   </a>
                 </li>
               ))}
@@ -76,7 +90,7 @@ export function Footer() {
 
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-alabaster">
-              Kontakt
+              {t("nav.contact")}
             </h4>
             <ul className="space-y-3 text-sm text-alabaster/60">
               <li>{SITE.address.street}</li>
