@@ -52,7 +52,6 @@ export function Header() {
       "/tim": "nav.team",
       "/blog": "nav.blog",
       "/kontakt": "nav.contact",
-      "/o-nama": "nav.about",
     };
     return t(key[item.link]);
   }
