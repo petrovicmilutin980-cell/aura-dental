@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_ITEMS } from "@/lib/constants";
@@ -11,6 +11,38 @@ export function Header() {
   const pathname = usePathname();
   const { t } = useI18n();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [headerHidden, setHeaderHidden] = useState(false);
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
+
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+
+    const handleScroll = () => {
+      if (ticking.current) return;
+      ticking.current = true;
+
+      requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        const delta = currentScrollY - lastScrollY.current;
+        const threshold = 50;
+
+        if (currentScrollY <= threshold || mobileOpen) {
+          setHeaderHidden(false);
+        } else if (delta > 0) {
+          setHeaderHidden(true);
+        } else if (delta < 0) {
+          setHeaderHidden(false);
+        }
+
+        lastScrollY.current = currentScrollY;
+        ticking.current = false;
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [mobileOpen]);
 
   function navLabel(item: (typeof NAV_ITEMS)[number]): string {
     const key: Record<string, string> = {
@@ -32,7 +64,11 @@ export function Header() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-in-out will-change-transform ${
+        headerHidden ? "-translate-y-full" : "translate-y-0"
+      }`}
+    >
       <div className="mx-4 my-3 md:mx-6 lg:mx-8">
         <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-xl border border-gold/10 bg-alabaster/90 px-6 py-3 shadow-lg shadow-midnight/5 backdrop-blur-xl">
           <Link href="/" className="flex items-center gap-2">
